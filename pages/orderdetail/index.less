@@ -1,0 +1,294 @@
+page {
+  background-color: #e6e6e6;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 1px);
+  line-height: 1;
+  border-top: 1px solid #f2f2f2;
+}
+
+.orders-container {
+  width: 710rpx;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20rpx;
+  background-color: #fff;
+  flex: 1;
+}
+
+/* Header style begin */
+
+.ct-header {
+  /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+  line-height: 1;
+  text-align: center;
+  margin-bottom: 64rpx;
+}
+
+.ct-header-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #2f2f2f;
+  margin-top: 80rpx;
+}
+
+.ct-header-des {
+  font-size: 24rpx;
+  margin-top: 24rpx;
+  letter-spacing: 3rpx;
+  color: #777;
+}
+
+/* Header style end */
+
+.ct-divide {
+  width: 650rpx;
+  height: 8rpx;
+  min-height: 8rpx;
+  margin-left: 30rpx;
+  margin-bottom: 10rpx;
+  /* background-color: gold; */
+  border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.ct-bd {
+  flex: 1;
+  display: flex;
+}
+
+/* selected items style begin */
+
+.cart-ct {
+  flex: 1;
+}
+
+.cart-scroll {
+  /* min-height: 360rpx;
+    max-height: 782rpx; */
+  height: 100%;
+  /* padding-top: 10rpx; */
+}
+
+.items-ct {
+  line-height: 1;
+}
+
+.items-title {
+  padding-bottom: 16rpx;
+  font-size: 24rpx;
+  color: #999799;
+  border-bottom: 1px solid #eee;
+}
+
+.item-ct {
+  padding-top: 16rpx;
+}
+
+.item-ct>text:nth-child(1) {
+  font-size: 32rpx;
+  color: #2f2f2f;
+  float: left;
+}
+
+.item-ct>text:nth-child(2),
+.item-ct>text:nth-child(3) {
+  font-size: 28rpx;
+  color: #999799;
+  float: right;
+}
+
+.item-ct>text:nth-child(2) {
+  padding-left: 34rpx
+}
+
+.cart-item,
+.items-ct {
+  position: relative;
+  padding: 20rpx 30rpx;
+  /* padding-bottom: 10rpx; */
+}
+
+.items-ct>.cart-item {
+  padding: 20rpx 0;
+}
+
+/* update to foodorderMP 2nd Version style begin */
+
+.item-ct {
+    padding: 0rpx 30rpx 30rpx;
+    font-size: 0rpx;
+    .img-view{
+        float: left;
+        image {
+            width: 100rpx;
+            height: 100rpx;
+        }
+    }
+    .item-desc {
+        width: calc(~'100% - 122rpx');
+        float: left;
+        margin-left: 22rpx;
+        font-weight: 300;
+        height: 100rpx;
+        line-height: 100rpx;
+        &>text{
+            width: 320rpx;
+            float: left;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 32rpx;
+            color: #2f2f2f;
+            
+        }
+        &>view {
+            float: right;
+            font-size: 28rpx;
+            color: #999799;
+            text:nth-of-type(1){
+                margin-right: 26rpx;
+                color: #de4b44
+            }
+        }
+    }
+}
+
+/* update to foodorderMP 2nd Version style end */
+
+.item-des {
+  float: left;
+  line-height: 1;
+}
+
+.item-name {
+  font-size: 32rpx;
+  color: #2f2f2f;
+  margin-bottom: 10rpx;
+}
+
+.item-price {
+  font-size: 28rpx;
+  color: #999799;
+}
+
+.item-btns {
+  float: right;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 20rpx;
+  top: 50%;
+  margin-top: -35rpx;
+}
+
+.items-ct .item-btns {
+  right: 0rpx
+}
+
+.item-btns text {
+  font-size: 30rpx;
+  color: #2f2f2f;
+  display: inline-block;
+  padding: 0 6rpx;
+}
+
+.btns-de,
+.btns-in {
+  width: 50rpx;
+  height: 50rpx;
+  position: relative;
+  padding: 10rpx;
+}
+
+/* selected items style end */
+
+/* Btns view begin */
+
+page>.ct-ft {
+  height: 80rpx;
+  padding: 40rpx 0;
+}
+
+.btns-view {
+  display: flex;
+}
+
+.btns-view navigator {
+  float: left;
+}
+
+.btn-err,
+.btn-confirm {
+  width: 345rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 40rpx;
+  margin-left: 20rpx;
+  color: #fff;
+  margin: 0 auto;
+}
+
+.btn-err {
+  background-color: #de4b44;
+}
+
+.btn-confirm {
+  float: left;
+  background-color: #23a4bb;
+}
+
+.disable {
+  background-color: #777;
+}
+/* Btns view end */
+
+/* Scroll view header begin */
+
+.scroll-header-view {
+  /* height: 310rpx; */
+  /* background-color: red; */
+  line-height: 1;
+  padding: 26rpx 30rpx 20rpx 30rpx;
+}
+
+.scroll-header-view .title,
+.scroll-header-view .ct-ft,
+.ct-item-bd {
+  font-size: 28rpx;
+  color: #999799;
+}
+
+.scroll-header-view .content {
+  margin-top: 20rpx;
+  padding: 40rpx 0 20rpx;
+  border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.ct-item {
+  float: left;
+  text-align: center;
+}
+
+.ct-item-title {
+  color: #2f2f2f;
+  font-size: 32rpx;
+}
+
+.ct-item-bd {
+  margin-top: 20rpx;
+}
+
+.scroll-header-view .ct-ft {
+  margin-top: 60rpx;
+}
+
+.ct-item2 {
+  margin-left: 134rpx;
+}
+
+/* Scroll view header end */

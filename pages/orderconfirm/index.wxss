@@ -1,0 +1,129 @@
+page {
+  background-color: #f2f2f2;
+  line-height: 1;
+  padding-bottom: 30rpx;
+}
+.banner {
+  position: relative;
+  width: 710rpx;
+  margin: 2rpx auto 0;
+  text-align: center;
+  background-color: #fff;
+  padding: 88rpx 0rpx 76rpx;
+}
+.banner view {
+  margin-top: 70rpx;
+  font-size: 34rpx;
+  color: #2f2f2f;
+  font-weight: 300;
+}
+.banner .banner-ico {
+  width: 107rpx;
+  height: 96rpx;
+}
+.banner .fixed-ico {
+  position: absolute;
+  top: 70rpx;
+  right: 24rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+  box-shadow: 0 8rpx 15rpx rgba(43, 5, 5, 0.35);
+}
+.btns-view {
+  width: 710rpx;
+  margin: 0 auto;
+  padding-bottom: 50rpx;
+  margin-top: 20rpx;
+  background-color: #fff;
+  font-weight: 300;
+  border-top: 1px solid rgba(255, 255, 255, 0);
+}
+.btns-view .btn-item {
+  width: 600rpx;
+  margin: 50rpx auto 0;
+}
+.btns-view .btn-item .btn {
+  height: 100rpx;
+  line-height: 100rpx;
+  position: relative;
+  text-align: center;
+  font-size: 36rpx;
+  color: #fff;
+  border-radius: 4rpx;
+  background-color: rgba(31, 195, 221, 0.9);
+  box-shadow: 0 3rpx 6rpx rgba(0, 0, 0, 0.35);
+  z-index: 2;
+}
+.btns-view .btn-item .btn .btn-addon {
+  position: absolute;
+  top: 0rpx;
+  right: 42rpx;
+}
+.btns-view .btn-item:nth-of-type(1) > .ct .ct-item .title-sign {
+  position: relative;
+  margin-left: 15rpx;
+}
+.btns-view .btn-item:nth-of-type(1) > .ct .ct-item .title-sign::before {
+  content: ' ';
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: -21rpx;
+  width: 6rpx;
+  height: 6rpx;
+  margin-top: -3rpx;
+  background-color: rgba(31, 195, 221, 0.9);
+}
+.btns-view .btn-item:nth-of-type(1) > .ct .ct-item > view {
+  float: right;
+  font-size: 28rpx;
+}
+.btns-view .btn-item:nth-of-type(1) > .ct .ct-item > view text:nth-of-type(1) {
+  color: #e15d56;
+  margin-right: 20rpx;
+}
+.btns-view .btn-item:nth-of-type(1) > .ct .ct-item > view text:nth-of-type(2) {
+  color: #2f2f2f;
+}
+.btns-view .btn-item:nth-of-type(1) > .ct .ct-item:nth-child(2) {
+  margin-top: 36rpx;
+}
+.btns-view .btn-item:nth-of-type(2) > .btn {
+  background-color: #e15d56;
+}
+.btns-view .btn-item:nth-of-type(3) > .ct text:nth-of-type(1) {
+  float: left;
+  font-size: 26rpx;
+}
+.btns-view .btn-item:nth-of-type(3) > .ct text:nth-of-type(2) {
+  float: right;
+  font-size: 30rpx;
+  color: #e05b55;
+  font-weight: 400;
+}
+.btns-view .btn-item .ct {
+  position: relative;
+  font-size: 28rpx;
+  padding: 34rpx 42rpx 36rpx 26rpx;
+  background-color: #ebebeb;
+  font-weight: 300;
+  border-radius: 4rpx;
+}
+.btns-view .btn-item .ct .btn-more {
+  position: absolute;
+  width: 26rpx;
+  height: 105rpx;
+  line-height: 105rpx;
+  right: -24rpx;
+  top: 50%;
+  text-align: center;
+  margin-top: -52.5rpx;
+  background-color: #ebebeb;
+  border-top-right-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+}
+.btns-view .btn-item .ct .btn-more image {
+  width: 13rpx;
+  height: 18rpx;
+}

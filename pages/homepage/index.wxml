@@ -1,0 +1,195 @@
+<!--pages/list/list.wxml-->
+<view class='container'>
+  <view class='main-view'>
+    
+    <!-- Left Menu Part Start -->
+    <view class='menu-view'>
+      <scroll-view class='menu-scroll' scroll-y="true" scroll-into-view="{{}}" scroll-top="{{mScrollTop}}">
+        
+        <block wx:for="{{listData}}" wx:key="" wx:if="{{item.items.length>0}}">
+          <view class='menu-item {{index === activeIndex?"menu-active":""}}' data-id='i{{index}}' catchtap='selectCategory' data-index='{{index}}'
+            id="m{{index || 0}}">{{item.cuisine.name || item.name}}</view>
+        </block>
+      </scroll-view>
+    </view>
+    <!-- Left Menu Part End -->
+
+    <!-- Right Items Part Start -->
+    <view class='items-view'>
+      <scroll-view class='items-scroll' scroll-y="true" scroll-with-animation="true" scroll-into-view="{{intoView}}" enable-back-to-top="true"
+        bindscroll="itemsScroll" id='scrollItems'>
+        <block wx:for="{{listData}}" wx:for-item="foods" wx:key="" wx:for-index="cateIndex" wx:if="{{foods.items.length>0}}">
+           <view class='items-nav-title' id='i{{cateIndex}}'></view>  
+          <!-- <view class='items-nav-title' id='i{{cateIndex}}'>{{foods.category.name || foods.name}}</view> -->
+          <block wx:for="{{foods.items || foods.items}}" wx:for-item="food" wx:key="" wx:for-index="subIndex">
+            <view class='item-view clear-fix' catchtap='showItemDetail' data-cateindex='{{cateIndex}}' data-subindex='{{subIndex}}'>
+              <image mode='scaleToFill' class='item-img' src='{{food.Image || "/static/imgs/canpinxiangq@2x.png"}}'></image>
+              <view class='item-view-ct'>
+                <view class='item-view-ct-first'>
+                  <view class='name'>{{food.name}}</view>
+                  <view class='price'>${{food.price || food.price}}</view>
+                </view>
+                <view class='item-view-ct-second'>
+                  <button class='btn-sm add' wx:if='{{!(food.quantity && food.quantity !== 0)}}' catchtap='addToCart' data-cateindex='{{cateIndex}}'
+                    data-subindex='{{subIndex}}' data-target='{{food.target}}'>添加</button>
+                  <view class='item-btns-list' wx:if='{{(food.quantity && food.quantity !== 0)}}'>
+                    <image src='../../static/imgs/jians{{imgRatio}}.png' class='btns-de' catchtap='decreaseNum' data-cateindex='{{cateIndex}}'
+                    data-subindex='{{subIndex}}' data-index='c{{food.cuisineId}}id{{food.id}}' data-target='{{food.target}}'></image>
+                    <text class='clfff'>{{food.quantity}}</text>
+                    <image src='../../static/imgs/tianjia{{imgRatio}}.png' class='btns-in' catchtap='increaseNum' data-cateindex='{{cateIndex}}'
+                    data-subindex='{{subIndex}}' data-index='c{{food.cuisineId}}id{{food.id}}' data-target='{{food.target}}'></image>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </block>
+        </block>
+      </scroll-view>
+    </view>
+    <!-- Right Items Part End -->
+  </view>
+
+  <!-- Selected Items' view -->
+  <view class='cart-view' catchtouchmove='blank'>
+    <view class='cart-glimpse shadow-default'>
+      <!-- menu button -->
+      <view class="menu-btn" hidden='{{cartDetailShow}}'>
+        <navigator hover-class='none' url='../historyorders/index'>
+          <image src='/static/imgs/dingdan@2x.png'></image>
+        </navigator>
+      </view>
+      <view class='cart-to-detail' catchtap='{{selectedItems.length?"getCartDetail":""}}'>
+        <image src='../../static/imgs/gouwuc{{imgRatio}}.png' class='cart-ico'></image>
+        <!-- TODO: 点菜的数量和add的数量有关，不仅仅是和菜品的种类 -->
+        <text class='cart-glimpse-des' hidden='{{!selectedItems.length}}'>已点了{{selectedItemsLen}}个菜</text>
+      </view>
+      <!-- <navigator class='ordered-view {{selectedItemsLen?"ordered-selected":""}}' url='{{selectedItemsLen?"../orderconfirm/index":""}}'
+        hover-class='none'>
+      </navigator> -->
+        <text class='ordered-view {{selectedItemsLen?"ordered-selected":""}}' catchtap='{{selectedItemsLen?"showTableNum":""}}'>送厨房</text>
+    </view>
+    <view class='cart-detail {{animateCSS}}' hidden="{{!cartDetailShow}}" catchtouchmove='blank'>
+      <view class='cart-header'>
+        <text>已选菜品</text>
+        <view class='cart-header-btns' catchtap='clearSelectedItems'>
+          <image src='../../static/imgs/del{{imgRatio}}.png'></image>
+          <text>清除</text>
+        </view>
+      </view>
+      <view class='cart-ct'>
+        <scroll-view class='cart-scroll' scroll-y="{{selectedItems.length > 5}}">
+          <block wx:for="{{selectedItems}}" wx:key="" wx:if="{{index !== 'length' && item.quantity !== 0}}">
+            <view class='cart-item clear-fix'>
+              <view class='item-des'>
+                <view class='item-name'>{{item.item.name}}{{item.preferences[0]}}</view>
+                
+              </view>
+              
+              <view class='item-btns'>
+                <image src='../../static/imgs/decrease-blue{{imgRatio}}.png' class='btns-de' catchtap='decreaseNum' data-index='{{index}}' data-cateindex='{{item.cateindex}}' data-subindex='{{item.subindex}}' data-src='cart' data-target='{{item.item.target}}'></image>
+                <text>{{item.quantity}}</text>
+                <image src='../../static/imgs/increase-blue{{imgRatio}}.png' class='btns-in' catchtap='increaseNum' data-index='{{index}}' data-cateindex='{{item.cateindex}}' data-subindex='{{item.subindex}}' data-src='cart' data-target='{{item.item.target}}'></image>
+              </view>
+              <view class='item-price'><text>${{item.item.price}}</text></view>
+            </view>
+          </block>
+        </scroll-view>
+        <!-- <scroll-view class='cart-scroll' scroll-y="true">
+          <block wx:for="{{selectedItems}}" wx:key="">
+            <view class='cart-item clear-fix'>
+              <view class='item-des'>
+                <view class='item-name'>{{item.name}}</view>
+                <text class='item-price'>${{item.price}}</text>
+              </view>
+              <view class='item-btns'>
+                <image src='../../static/imgs/decrease-blue{{imgRatio}}.png' class='btns-de' catchtap='decreaseNum'></image>
+                <text>{{item.number}}</text>
+                <image src='../../static/imgs/increase-blue{{imgRatio}}.png' class='btns-in' catchtap='increaseNum'></image>
+              </view>
+            </view>
+          </block>
+        </scroll-view> -->
+      </view>
+
+      <!-- menu button -->
+      <view class="menu-btn">
+        <navigator hover-class='none' url='../historyorders/index'>
+          <image src='/static/imgs/dingdan@2x.png'></image>
+        </navigator>
+      </view>
+    </view>
+  </view>
+
+  <!-- 弹出商品详情页开始 -->
+  <view class='item-detail' hidden='{{!showSelectedItem}}' catchtouchmove='blank'>
+    <view class='item-img-view'>
+      <image src='{{selectedItem.imageUrl || "/static/imgs/canpinxiangq@2x.png"}}'></image>
+    </view>
+    <view class='item-ct'>
+      <view class='item-ct-first clear-fix'>
+        <view class='item-ct-bd'>
+          <view class='item-ct-name'>{{selectedItem.name}}</view>
+          <view class='item-ct-num'>${{selectedItem.price}}</view>
+        </view>
+        <view class='item-ct-btn'>
+          <button data-cateindex='{{cateindex}}' data-subindex='{{subindex}}' catchtap='addToCart' wx:if='{{!(selectedItem.quantity && selectedItem.quantity !== 0)}}' data-target='{{selectedItem.target}}'>添加</button>
+          <view class='item-btns-list' wx:if='{{(selectedItem.quantity && selectedItem.quantity !== 0)}}'>
+            <image src='../../static/imgs/decrease-blue{{imgRatio}}.png' class='btns-de' data-close='close' catchtap='decreaseNum' data-cateindex='{{cateindex}}'
+                    data-subindex='{{subindex}}' data-index='c{{selectedItem.cuisineId}}id{{selectedItem.id}}' data-target='{{selectedItem.target}}'></image>
+            <text>{{selectedItem.quantity}}</text>
+            <image src='../../static/imgs/increase-blue{{imgRatio}}.png' class='btns-in' data-close='close' catchtap='increaseNum' data-cateindex='{{cateindex}}'
+                    data-subindex='{{subindex}}' data-index='c{{selectedItem.cuisineId}}id{{selectedItem.id}}' data-target='{{selectedItem.target}}'></image>
+          </view>
+        </view>
+      </view>
+      <view class='item-ct-second'>
+        <view class='item-ct-des'>{{selectedItem.description}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 弹出商品详情页结束 -->
+
+  <!-- 弹出商品规格页 -->
+  <view class='item-preferences' wx:if="{{showPreferences}}">
+    <view class='item-pf-header'>选口味</view>
+    <view class='item-pf-ct'>
+      <view class='item-pf-ct-title'>口味</view>
+      <view class='item-pf-ct-items clear-fix' catchtap='switchPreferences'>
+        <block wx:for="{{selectedPrefer.preferences}}" wx:for-item="pref" wx:key="">
+          <text data-index='{{index}}' class='{{index === selectedIndex ? "pf-selected": ""}}'>{{pref}}</text>
+        </block>
+      </view>
+
+      <view class='cart-pf-item clear-fix'>
+        <view class='item-pf-des'>
+          <text class='item-pf-price'>${{selectedPrefer.price}}</text>
+        </view>
+        <view class='item-pf-btns'>
+          <image src='../../static/imgs/decrease-blue{{imgRatio}}.png' class='btns-de' catchtap='decreasePFQuan'></image>
+          <text>{{selectQuantity}}</text>
+          <image src='../../static/imgs/increase-blue{{imgRatio}}.png' class='btns-in' catchtap='increasePFQuan'></image>
+        </view>
+      </view>
+      <view class='pf-add-btn'>
+        <text catchtap='addPF2Cart'>添加</text>
+      </view>
+    </view>
+  </view>
+  <!-- 弹出商品规格页 -->
+
+  <!-- tablenumber confirm -->
+  <view class='tablenum-view' wx:if="{{showTableNum}}">
+    <view class='title'>
+      <text>请输入餐桌号</text>
+    </view>
+    <view class='input-view'>
+      <input type='number' bindinput="getTableNumber" value='{{tableNumber}}'></input>
+    </view>
+    <view class='btns'>
+      <text catchtap='hideTableNum'>取消</text>
+      <text catchtap='{{confirmTableNumEnable?"confirmTableNum":""}}'>确定</text>
+    </view>
+  </view>
+  <!-- tablenumber confirm -->
+  <view class='mask' hidden='{{!cartDetailShow && !showSelectedItem && !showPreferences && !showTableNum}}' catchtouchmove='blank' catchtap='hideAll'></view>
+</view>

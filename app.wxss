@@ -1,0 +1,52 @@
+/**app.wxss**/
+/* @import '/static/font/stylesheet'; */
+@import '/utils/components/wux.wxss';
+@import '/assets/styles/weui.wxss';
+@import '/assets/styles/skyvow.wxss';
+
+@import './utils/plugins/animate.wxss';
+@import '/static/bgimage/order.wxss';
+
+page {
+  font-weight: 400;
+}
+
+.container {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+button::after {
+  border: none;
+}
+
+.rd-btn-lg {
+  width: 350rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 36rpx;
+  border-radius: 40rpx;
+  color: #fff;
+}
+
+.bghex23a {
+  background-color: #23a4bb;
+}
+
+.clear-fix::after {
+  content: ' ';
+  height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+.mask {
+  position: fixed;
+  z-index: 99;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+}

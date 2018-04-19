@@ -1,0 +1,15 @@
+export { default as cloneDeep } from './cloneDeep.js';
+export { default as eq } from './eq.js';
+export { default as isArguments } from './isArguments.js';
+export { default as isArray } from './isArray.js';
+export { default as isArrayLike } from './isArrayLike.js';
+export { default as isBuffer } from './isBuffer.js';
+export { default as isFunction } from './isFunction.js';
+export { default as isLength } from './isLength.js';
+export { default as isMap } from './isMap.js';
+export { default as isMatch } from './isMatch.js';
+export { default as isObject } from './isObject.js';
+export { default as isObjectLike } from './isObjectLike.js';
+export { default as isSet } from './isSet.js';
+export { default as isTypedArray } from './isTypedArray.js';
+export { default } from './lang.default.js';

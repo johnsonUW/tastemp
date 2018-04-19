@@ -1,0 +1,84 @@
+<template name="dialog">
+  <view class="weui-mask {{ animateCss }}" wx:if="{{ visible }}" catchtap='{{hide}}' catchtouchmove='{{blank}}'></view>
+  <view class="weui-dialog {{ animateCss }} {{icons===2?'priceW':''}}" wx:if="{{ visible }}" catchtouchmove='{{blank}}'>
+    <view class="weui-dialog__hd" wx:if="{{ title }}">
+      <view class="weui-dialog__title">{{ title }}</view>
+    </view>
+
+    <view class="weui-dialog__bd" wx:if="{{ content }}">
+      <view class="weui-dialog__content">{{ content }}</view>
+      <input wx:if="{{ prompt }}" type="{{ prompt.fieldtype }}" class="weui-input weui-prompt-input" value="{{ prompt.response }}" password="{{ prompt.password }}" placeholder="{{ prompt.placeholder }}" maxlength="{{ maxlength }}" bindinput="{{ bindinput }}"
+      />
+    </view>
+
+
+    <!-- 弹窗页 -->
+    <view class="weui-dialog__bd contentT" wx:if="{{ contentT }}">
+      <view class="weui-dialog__content ">{{ contentT }}</view>
+    </view>
+
+    <!--微信付款页  -->
+    <view wx:if="{{icons === 1 }}" class="ico-view">
+      <view class='ico-item-view'>
+
+      <radio-group>
+        <radio id='cashPay' value='cashPay' color='#4d7bb7' class='ico-item1' checked='true'></radio>
+        <image src="../../static/imgs/wechat@2x.png" class="ico-item2"></image>
+        <text class='ico-item-text'>微信支付</text>
+      </radio-group>
+      </view>
+    </view>
+
+    <!--修改维修价格  -->
+    <view wx:if="{{icons === 2}}" class="ico-view-price">
+      <view class='payfee-item'>
+        <text class='payfee-item-title'>{{name? "姓名": "人工费"}}</text>
+        <input placeholder='{{prompt.placeholder1}}' maxlength="5" type='digit' class='payfee-item-input' bindinput='{{bindinput3}}' value='{{prompt.servicefee}}' bindfocus='{{clearPlaceholder}}' data-type="service" bindblur='{{setPlaceholder}}'></input>
+
+      </view>
+      <view class='payfee-item border-none'>
+        <text class='payfee-item-title'>{{name? "电话": "零件费"}}</text>
+        <input placeholder='{{prompt.placeholder2}}' maxlength='5' type='digit' class='payfee-item-input' bindinput='{{bindinput4}}' value='{{prompt.componentfee}}' bindfocus='{{clearPlaceholder}}' data-type="component" bindblur='{{setPlaceholder}}'></input>
+
+      </view>
+
+      <view class='notify'>
+        <text class='notify-dot'></text>
+        <text class='notify-des'>人工费：师傅的人工费</text>
+      </view>
+      <view class='notify'>
+        <text class='notify-dot'></text>
+        <text class='notify-des'>零件费：维修过程中需要更换零件的费用</text>
+      </view>
+      <view class='notify'>
+        <text class='notify-dot'></text>
+        <text class='notify-des'>若不确定具体费用，可以不填，双方面议或由师傅定价</text>
+      </view>
+      <view class='notify pdb34 border-bottom'>
+        <text class='notify-dot-text'>*</text>
+        <text class='notify-des hex-orange'>检测费：我们提供免费上门，上门检测后如因故障较大不值得维修或因为报价不满意超出您的预算等等原因，未维修的您需支付30元检测费用</text>
+      </view>
+    </view>
+
+    <!--编辑用户姓名和电话号码页  -->
+    <view wx:if="{{icons === 3}}" class="ico-view-profile ">
+      <view class='ico-view-item'>
+        <text class="payfee-item-title ico-view-name-title">姓名</text>
+        <input type="text" class="ico-view-name" value="{{prompt.responsename}}" placeholder="请输入联系人姓名" maxlength="16" bindinput="{{ bindinput1 }}"></input>
+      </view>
+      <view class='ico-view-item'>
+        <text class="payfee-item-title ico-view-name-title">电话</text>
+        <input type="number" class="ico-view-name" value="{{prompt.responsephone}}" placeholder="请输入联系方式" maxlength="11" bindinput="{{ bindinput2 }}"></input>
+      </view>
+
+    </view>
+
+
+    <view class="weui-dialog__ft {{ verticalButtons ? 'weui-dialog__btns_vertical' : '' }}" wx:if="{{ buttons.length }}">
+      <block wx:for="{{ buttons }}" wx:key="">
+        <view wx:if="{{index !== 0}}" class='btn-devide'></view>
+        <view class="weui-dialog__btn weui-dialog__btn_default {{ item.type }} {{ item.bold ? 'weui-dialog__btn_bold' : '' }}" data-index="{{ index }}" bindtap="{{ buttonTapped }}">{{ item.text }}</view>
+      </block>
+    </view>
+  </view>
+</template>

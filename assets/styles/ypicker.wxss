@@ -1,0 +1,152 @@
+/* pages/test/test.wxss */
+
+.mask {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.bgtransparent {
+  background-color: transparent;
+}
+
+.ym-picker {
+  position: fixed;
+  right: 20rpx;
+  top: 22%;
+  width: 710rpx;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  font-size: 32rpx;
+  border-radius: 10rpx;
+  line-height: 1;
+  z-index: 1000;
+}
+
+.first-picker {
+  display: flex;
+  flex-direction: row;
+  padding: 41rpx 30rpx 0rpx 30rpx;
+  color: #999;
+}
+
+.selec {
+  color: #4d7bb7;
+  border-color: #4d7bb7;
+}
+
+.picker-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: -8rpx;
+}
+
+.first-picker-item {
+  position: relative;
+  width: 250rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  border: 1rpx solid #999;
+  border-radius: 4rpx;
+  margin-bottom: 40rpx;
+  margin-left: 40rpx;
+}
+
+.picker-title {
+  min-width: 62rpx;
+  line-height: 30rpx;
+  font-size: 30rpx;
+  padding-top: 20rpx;
+  color: #333;
+}
+
+.second-picker-header {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 30rpx;
+  padding-left: 30rpx;
+}
+
+.second-picker {
+  display: flex;
+  flex-direction: row;
+  padding: 10rpx 30rpx;
+  color: #4d7bb7;
+}
+
+.indicator {
+  height: 70rpx;
+  border: none;
+  position: relative;
+  top: -10rpx;
+}
+
+.indicator::after {
+  display: none;
+}
+
+.indicator::before {
+  display: none;
+}
+
+.picker-view {
+  width: 250rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  border: 1rpx solid #4d7bb7;
+}
+
+.choose-ico {
+  position: absolute;
+  right: -1rpx;
+  bottom: -1rpx;
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.picker-btns {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-top: 1rpx solid #eee;
+}
+
+.btn-divide-line {
+  width: 1rpx;
+  height: 40rpx;
+  background-color: #eee;
+}
+
+.btn-cancel, .btn-confirm {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 55rpx 0rpx;
+  color: #999;
+}
+
+.btn-confirm {
+  color: #ff560c;
+}
+
+.btn-cancel:active, .btn-confirm:active {
+  background-color: #f2f2f2;
+}
+
+.picker-header-title {
+  color: #333;
+}
+
+.picker-header-des {
+  margin-left: 28rpx;
+  color: #999;
+}

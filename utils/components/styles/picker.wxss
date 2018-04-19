@@ -1,0 +1,185 @@
+.wux-picker-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.wux-picker {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 1010;
+  text-align: center;
+  border-radius: 0;
+  opacity: 1;
+  color: #3d4145;
+  height: 600rpx;
+  background: #efeff4;
+  box-sizing: border-box;
+}
+
+.wux-picker .wux-picker-view {
+  width: 100%;
+  height: 512rpx;
+}
+
+.wux-picker .wux-picker-view-column {
+  font-size: 32rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  padding: 0 20rpx;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #9b9b9b;
+  width: 100%;
+  box-sizing: border-box;
+    background: rgb(252, 252, 252);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wux-picker .wux-picker-view-column-left {
+  text-align: left !important;
+}
+
+.wux-picker .wux-picker-view-column-right {
+  text-align: right !important;
+}
+
+.wux-picker .wux-picker-view-column-center {
+  text-align: center !important;
+  background: rgb(252, 252, 252);
+}
+
+.picker-header {
+  position: relative;
+  width: 100%;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #3d4145;
+  background: #f7f7f8;
+}
+
+.picker-header:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: auto;
+  right: auto;
+  height: 2rpx;
+  width: 100%;
+  background-color: #d9d9d9;
+  display: block;
+  z-index: 15;
+  transform-origin: 50% 0%;
+}
+
+.picker-header .picker-header-inner {
+  height: 88rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  text-align: center;
+}
+
+.picker-header .title {
+  position: absolute;
+  display: block;
+  width: 100%;
+  padding: 0;
+  font-size: 0.85rem;
+  font-weight: normal;
+  line-height: 88rpx;
+  color: #3d4145;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.picker-header .picker-button {
+  position: absolute;
+  height: 88rpx;
+  line-height: 88rpx;
+  color: #586c94;
+  z-index: 1;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.picker-header .close-picker {
+  top: 0;
+  right: 0;
+}
+
+/* 自定义 */
+
+/*  */
+
+.selc {
+  color: #ff8843;
+}
+
+.date-picker {
+  position: absolute;
+  width: 250rpx;
+  height: 312rpx;
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 100rpx 0rpx;
+  background: rgb(252, 252, 252);
+  z-index: 999;
+}
+
+.date-picker-item {
+  width: 200rpx;
+  height: 65rpx;
+  line-height: 65rpx
+}
+
+.wux-picker .date-picker::after{
+  content: '—';
+  display: block;
+  position: absolute;
+  color: #9b9b9b;
+  top: 50%;
+  left: 200%;
+  line-height: 36rpx;
+  margin-top: -18rpx;
+  margin-left: -16rpx;
+}
+
+.devide-line {
+  position: absolute;
+  width: 0rpx;
+  height: 312rpx;
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 100rpx 0rpx;
+  background: rgb(252, 252, 252);
+  z-index: 999;
+}
+
+.wux-picker .devide-line::after{
+  content: '—';
+  display: block;
+  position: absolute;
+  color: #9b9b9b;
+  top: 50%;
+  left: 200%;
+  line-height: 36rpx;
+  margin-top: -18rpx;
+  margin-left: 484rpx;
+}

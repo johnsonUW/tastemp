@@ -1,0 +1,366 @@
+.weui-dialog {
+  position: fixed;
+  z-index: 5000;
+  width: 600rpx;
+  top: 45%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  text-align: center;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.weui-dialog__hd {
+  padding: 1.3em 1.6em 0.5em;
+}
+
+.weui-dialog__title {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.weui-dialog__bd {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 34rpx;
+  /* min-height: 116rpx;  */
+  font-size: 32rpx;
+  line-height: 1;
+  word-wrap: break-word;
+  word-break: break-all;
+  color: #999;
+  border-bottom: 1rpx solid #e4e4e4;
+}
+
+.weui-dialog__bd:first-child {
+  padding: 1.7rem 34rpx 1.7rem;
+  color: #666;
+}
+
+.weui-dialog__ft {
+  position: relative;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.weui-dialog__ft:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1px;
+  color: #d5d5d6;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+}
+
+.weui-dialog__btn {
+  height: 123rpx;
+  line-height: 123rpx;
+  /* margin-top: 30rpx;
+	margin-bottom: 30rpx; */
+  vertical-align: center;
+  -webkit-flex: 1;
+  flex: 1;
+  color: #3cc51f;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* .weui-dialog__btn:first-of-type {
+   border-right: 1px solid #e4e4e4; 
+} */
+
+.weui-dialog__btn:active {
+  background-color: #eee;
+}
+
+.weui-dialog__btn:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  bottom: 0;
+  border-left: 1px solid #d5d5d6;
+  color: #d5d5d6;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleX(0.5);
+  transform: scaleX(0.5);
+}
+
+.weui-dialog__btn:first-child:after {
+  display: none;
+}
+
+.weui-dialog__btn_default {
+  color: #999;
+}
+
+.weui-dialog__btn_primary {
+  color: #23a4bb;
+}
+
+.weui-dialog__bd .weui-prompt-input {
+  height: 100%;
+  width: 100%;
+  margin-top: 0.6rem; 
+  margin-bottom: 0.6rem; 
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.weui-dialog__ft.weui-dialog__btns_vertical {
+  display: block;
+  height: auto;
+}
+
+.weui-dialog__btns_vertical .weui-dialog__btn:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: auto;
+  top: auto;
+  height: 1px;
+  width: 100%;
+  background-color: #d5d5d6;
+  display: block;
+  z-index: 15;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+}
+
+.weui-dialog__btns_vertical .weui-dialog__btn:last-child:after {
+  display: none;
+}
+
+.weui-dialog__btn.weui-dialog__btn_bold {
+  font-weight: 500;
+}
+
+.weui-dialog__content {
+  text-align: left;
+  line-height: 1.5;
+}
+
+.weui-mask {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(33, 33, 33, 0.3);
+}
+
+.btn-devide {
+  height: 42rpx;
+  width: 2rpx;
+  background-color: #e4e4e4;
+}
+
+.ico-view {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 194rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.ico-item1 {
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 1;
+  margin-left: 75rpx;
+}
+
+.ico-item2 {
+  width: 85rpx;
+  height: 67rpx;
+  margin-left: 64rpx;
+}
+
+/* .radio-label {
+} */
+
+.ico-item-text {
+  width: 120rpx;
+  font-size: 30rpx;
+  margin-left: 30rpx;
+}
+
+/* 价格编辑区域样式 */
+
+.ico-view-price {
+  display: flex;
+  flex-direction: column;
+}
+
+.payfee-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 200rpx;
+  line-height: 200rpx;
+  padding-left: 50rpx;
+  padding-right: 55rpx;
+  border-bottom: 1rpx solid #e4e4e4;
+}
+
+.payfee-item-title {
+  display: inline-block;
+  width: 114rpx;
+}
+
+.payfee-item-input {
+  width: 250rpx;
+  height: 88rpx;
+  font-size: 48rpx;
+  background-color: #eee;
+  border: 1rpx solid #f4f4f4;
+  border-radius: 10rpx;
+  text-align: center;
+  color: #4d7bb7;
+}
+
+.priceW {
+  width: 690rpx;
+}
+
+/* 用户信息编辑 */
+
+.ico-view-item {
+  border-bottom: 1rpx solid #f4f4f4;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.ico-view-name-title {
+  display: inline-block;
+  position: relative;
+  min-width: 100rpx;
+  /* line-height: 156rpx; */
+  left: 20rpx;
+  font-size: 32rpx;
+  /* color: #999; */
+}
+
+.ico-view-name {
+  width: 90%;
+  font-size: 32rpx;
+  color: #999;
+  margin: 54rpx 20rpx;
+  margin-left: 40rpx;
+  text-align: left;
+  padding: 10rpx 20rpx;
+  /* background-color: #eee; */
+}
+
+.border-none {
+  border-bottom: none;
+}
+
+.border-bottom {
+  border-bottom: 1rpx solid #eee;
+}
+
+.notify {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-width: 590rpx;
+  padding-left: 50rpx;
+  padding-right: 55rpx;
+  text-align: left;
+  font-size: 26rpx;
+  line-height: 1.5;
+  color: #666;
+}
+
+.notify-dot {
+  display: inline-block;
+  min-width: 10rpx;
+  height: 10rpx;
+  border-radius: 6rpx;
+  background-color: #4d7bb7;
+  margin-top: 13rpx;
+}
+
+.notify-dot-text {
+  display: inline-block;
+  min-width: 10rpx;
+  height: 10rpx;
+  line-height: 1;
+  /* border-radius: 6rpx; */
+  color: #4d7bb7;
+  margin-top: 12rpx;
+}
+
+.notify-des {
+  margin-left: 19rpx;
+}
+
+.pdb34 {
+  padding-bottom: 34rpx;
+}
+
+.contentT {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  font-size: 28rpx;
+}
+
+.hex-orange {
+  color: #ff8543;
+}
+
+.ico-item-view {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+/* 师傅端查看服务价格样式开始 */
+.ico-view-fee{
+  padding:45rpx 30rpx;
+  border-bottom: 1px solid #e4e4e4;
+}
+.ico-view-fee-item1{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ico-view-fee-item2 {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30rpx;
+  /* align-items: flex-start; */
+}
+
+.ico-view-fee-item-des{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.mgt20 {
+  margin-top: 20rpx;
+}
+.mgt36 {
+  margin-top: 36rpx;
+}
+/* 师傅端查看服务价格样式结束 */

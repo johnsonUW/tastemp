@@ -1,0 +1,49 @@
+<import src="/utils/components/dialog/dialog.wxml"/>
+<template is="dialog" data="{{ ...$wux.dialog }}" />
+
+<view>
+  <view class='banner'>
+    <image src='/static/imgs/ico-saucepan.png' class='banner-ico'></image>
+    <view>
+      <text>订单已送至厨房</text>
+    </view>
+    <navigator open-type='navigate' url='../historyorders/index' hover-class='none'>
+    <image src='/static/imgs/dingdan@2x.png' class='fixed-ico'></image>
+    </navigator>
+  </view>
+  <view class='btns-view'>
+    <view class='btn-item' catchtap='goToDetailPage'>
+   
+      <view class='btn'>查看订单
+        <text class='btn-addon'>({{latestOrderQuantity}}个)</text>
+      </view>
+    
+      <view class='ct'>
+        <block wx:for="{{latestOrder.details}}" wx:key="" wx:if="{{index<2}}">
+          <view class='ct-item clear-fix'>
+            <text class='title-sign'>{{item.name}}</text>
+            <view>
+              <text>${{item.price}}</text>
+              <text>X{{item.quantity}}</text>
+            </view>
+          </view>
+        </block>
+        <view class='btn-more' wx:if="{{latestOrder.details.length>2}}">
+          <image src='/static/imgs/ico-more-right.png'></image>
+        </view>
+      </view>
+    </view>
+    <view class='btn-item'>
+    <navigator open-type='navigateBack' hover-class='none' class='btn'>
+      <view>加菜</view>
+    </navigator>
+    </view>
+    <view class='btn-item'>
+      <view class='btn' catchtap='payOptions'>买单</view>
+      <view class='ct clear-fix'>
+        <text>消费</text>
+        <text>${{latestOrder.totalFee}}</text>
+      </view>
+    </view>
+  </view>
+</view>

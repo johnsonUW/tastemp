@@ -1,0 +1,117 @@
+<!--pages/orders/orders.wxml-->
+
+<import src="/utils/components/dialog/dialog.wxml"/>
+<template is="dialog" data="{{ ...$wux.dialog }}" />
+
+<view class='orders-container'>
+  <view class='ct-header'>
+    <view class='ct-header-title'>桌号：{{latestOrder.tableNumber || latestOrder.table}}</view>
+    <!-- <view class='ct-header-des' wx:if="{{!uploadOrdersFlag}}">{{selectedItemsLen + uploadedOrdersLen}}个菜</view> -->
+  </view>
+  <view class='ct-divide'></view>
+  <view class='scroll-header-view'>
+    <view class='title'>
+      <text>基本信息</text>
+    </view>
+    <view class='content'>
+      <view class='ct-sum clear-fix'>
+        <view class='ct-item'>
+          <view class='ct-item-title'>下单时间</view>
+          <view class='ct-item-bd'>{{latestOrder.filterTime2Min}}</view>
+        </view>
+        <view class='ct-item ct-item2'>
+          <view class='ct-item-title'>菜品数量</view>
+          <view class='ct-item-bd'>{{latestOrder.orderLen}}份</view>
+        </view>
+      </view>
+      <view class='ct-ft'>
+        <text>菜品详情</text>
+      </view>
+    </view>
+  </view>
+  <view class='ct-bd'>
+    <view class='cart-ct'>
+      <scroll-view class='cart-scroll' scroll-y="true">
+
+        <!-- update to foodorderMP 2nd Version start-->
+        <block wx:for="{{latestOrder.details}}" wx:key="">
+          <view class='item-ct clear-fix' wx:if="{{item.quantity !== 0}}">
+            <view class='img-view'>
+              <image src='{{item.image || "/static/imgs/canpinxiangq@2x.png"}}'></image>
+            </view>
+            <view class='item-desc'>
+              <text>{{item.name}}</text>
+              <view>
+                <text>${{item.price}}</text>
+                <text>X{{item.quantity}}</text>
+              </view>
+            </view>
+          </view>
+
+          <!-- <view class='cart-item clear-fix' wx:if="{{!orders.paidStatus}}">
+            <view class='item-des'>
+              <view class='item-name'>{{item.item.name}}</view>
+              <text class='item-price'>￥{{item.item.priceInPennies/100}}</text>
+            </view>
+            <view class='item-btns'>
+              <image src='../../static/imgs/jians{{imgRatio}}.png' class='btns-de' catchtap='putDecrease' data-itemsindex='{{itemsIndex}}' data-index='{{index}}'></image>
+              <text>{{item.quantity}}</text>
+              <image src='../../static/imgs/tianjia{{imgRatio}}.png' class='btns-in' catchtap='putIncrease' data-itemsindex='{{itemsIndex}}' data-index='{{index}}'></image>
+            </view>
+          </view> -->
+        </block>
+
+        <!-- update to foodorderMP 2nd Version end-->
+
+
+        <!-- <block wx:for="{{selectOrder}}" wx:key="" wx:if="{{index !== 'length' && item.quantity !== 0}}">
+          <view class='cart-item clear-fix'>
+            <view class='item-des'>
+              <view class='item-name'>{{item.item.name}}</view>
+              <text class='item-price'>￥{{item.item.priceInPennies/100}}</text>
+            </view>
+            <view class='item-btns'>
+              <image src='../../static/imgs/jians{{imgRatio}}.png' class='btns-de' catchtap='decreaseNum' data-index='{{index}}'></image>
+              <text>{{item.quantity}}</text>
+              <image src='../../static/imgs/tianjia{{imgRatio}}.png' class='btns-in' catchtap='increaseNum' data-index='{{index}}'></image>
+            </view>
+          </view>
+        </block> -->
+
+        <!-- <block wx:for="{{uploadedOrders.items}}" wx:for-item="orders" wx:key="" wx:for-index="itemsIndex">
+          <view class='items-ct'>
+            <view class='items-title' wx:if="{{uploadedOrders.items.length>1}}">菜单{{itemsIndex+1}}{{orders.paidStatus?"（已支付）":"（待支付）"}}</view>
+            <block wx:for="{{orders.item}}" wx:if="{{index !== 'length' && orders.item[index].quantity !== 0}}" wx:key="">
+              <view class='item-ct clear-fix' wx:if="{{orders.paidStatus}}">
+                <text>{{item.item.name}}</text>
+                <text>￥{{item.item.priceInPennies/100}}</text>
+                <text>X{{item.quantity}}</text>
+              </view>
+
+
+              <view class='cart-item clear-fix' wx:if="{{!orders.paidStatus}}">
+                <view class='item-des'>
+                  <view class='item-name'>{{item.item.name}}</view>
+                  <text class='item-price'>￥{{item.item.priceInPennies/100}}</text>
+                </view>
+                <view class='item-btns'>
+                  <image src='../../static/imgs/jians{{imgRatio}}.png' class='btns-de' catchtap='putDecrease' data-itemsindex='{{itemsIndex}}' data-index='{{index}}'></image>
+                  <text>{{item.quantity}}</text>
+                  <image src='../../static/imgs/tianjia{{imgRatio}}.png' class='btns-in' catchtap='putIncrease' data-itemsindex='{{itemsIndex}}' data-index='{{index}}'></image>
+                </view>
+              </view>
+            </block>
+          </view>
+        </block> -->
+      </scroll-view>
+    </view>
+  </view>
+</view>
+<view class='ct-ft'>
+  <view class='btns-view'>
+    <navigator hover-class='none' class='btn-err' delta='{{navbackNum}}' open-type='navigateBack' wx:if="{{havingDinner.status}}">
+      加菜
+    </navigator>
+    <button class='btn-confirm {{payEnable?"":"disable"}}' catchtap='payOptions'>买单</button>
+  </view>
+</view>

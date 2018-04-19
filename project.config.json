@@ -1,0 +1,97 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.5.3",
+	"appid": "wx5322fd632feee9b2",
+	"projectname": "foodordering_v2",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "list",
+					"pathName": "pages/list/list",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "orders",
+					"pathName": "pages/orders/orders",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "测试table",
+					"pathName": "pages/index/index",
+					"query": "id=12"
+				},
+				{
+					"id": 3,
+					"name": "tableNumber = 1模式+companyId = 2",
+					"pathName": "pages/index/index",
+					"query": "tableNumber=8&companyId=2",
+					"scene": "1011"
+				},
+				{
+					"id": 4,
+					"name": "tableNumber = 1模式+companyId = 2",
+					"pathName": "pages/list/list",
+					"query": "tablenumber=8&id=2",
+					"scene": "1011"
+				},
+				{
+					"id": 5,
+					"name": "历史订单",
+					"pathName": "pages/historyorders/index",
+					"query": "tablenumber=8&id=2",
+					"scene": "1001"
+				},
+				{
+					"id": -1,
+					"name": "orderDetail",
+					"pathName": "pages/orderdetail/index",
+					"query": "tablenumber=8&id=2",
+					"scene": "1001"
+				},
+				{
+					"id": 7,
+					"name": "homepage == id=2",
+					"pathName": "pages/homepage/index",
+					"query": "id=2",
+					"scene": "1011"
+				},
+				{
+					"id": 8,
+					"name": "homepage == scene=1",
+					"pathName": "pages/homepage/index",
+					"query": "id=1",
+					"scene": "1011"
+				}
+			]
+		}
+	}
+}

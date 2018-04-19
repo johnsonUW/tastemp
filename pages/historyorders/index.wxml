@@ -1,0 +1,76 @@
+<view>
+  <view class='latest-item'>
+    <view class='item-ct'>
+      <!-- <image src='/static/imgs/header_img.png'></image> -->
+      <view class='item-wrap header-bg'>
+        <view class='item-ct-header clear-fix'>
+          <view class='header-l'>
+            <text>下单时间</text>
+            <text>{{latestOrder.filterDate}}</text>
+          </view>
+          <view class='header-r'>
+            <text>实付</text>
+            <text>＄{{latestOrder.totalFee}}</text>
+          </view>
+        </view>
+
+        <view class='item-detail'>
+          <view class='title'>菜品</view>
+          <view class='items-list'>
+          <block wx:for="{{latestOrder.details}}" wx:key="" wx:if="{{index<2}}">
+            <view class='list-row'>
+              <text>{{item.name}}</text>
+              <text>X{{item.quantity}}</text>
+              <text>${{item.price}}</text>
+            </view>
+          </block>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='item-btns'>
+      <view class='clear-fix'>
+        <navigator open-type='navigate' url='../orderdetail/index' hover-class='none' catchtap="toLatestOrderDetail">
+        <text>查看详情</text>
+        </navigator>
+        <navigator open-type='navigateBack' delta='{{navbackNum}}' hover-class='none' wx:if="{{havingDinner.status}}">
+        <text>加菜</text>
+        </navigator>
+      </view>
+    </view>
+  </view>
+  <view class='history-items'>
+    <view class='left-sign-header'>历史订单</view>
+    <view class='items-wrap'>
+      <block wx:for="{{historyOrders}}" wx:if="{{index !== 0 && index <= showIndex && order.totalFee !== 0}}" wx:for-item="order" wx:key="">
+        <view class='item'>
+          <view class='item-header'>
+          <text>{{order.filterDate}} {{order.filterTime}}</text>
+          </view>
+          <view class='item-ct'>
+            <block wx:for="{{order.details}}" wx:key="">
+              <view class='item-detail clear-fix'>
+                <view class='img-view'>
+                  <image src="{{item.image || '/static/imgs/canpinxiangq@2x.png'}}"></image>
+                </view>
+                <view class='desc-view'>
+                  <view class='desc1'>
+                    <text>{{item.name}}</text>
+                    <text>${{item.price}}</text>
+                  </view>
+                  <view class='desc2'>
+                    <text>X{{item.quantity}}</text>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <view class='item-sum'>
+              <text>合计:</text>
+              <text>${{order.totalFee}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
