@@ -112,6 +112,6 @@
     <navigator hover-class='none' class='btn-err' delta='{{navbackNum}}' open-type='navigateBack' wx:if="{{havingDinner.status}}">
       加菜
     </navigator>
-    <button class='btn-confirm {{payEnable?"":"disable"}}' catchtap='payOptions'>买单</button>
+    <button class='btn-confirm {{payEnable?"":"disable"}}' catchtap='payOptions'>{{payEnable?"买单":"已买单"}}</button>
   </view>
 </view>

@@ -589,10 +589,12 @@ Page({
             let hotIndex = {}; //use to store the index from hot dishes & normal dishes
             res.forEach((ele, index) => {
               if (index === 0) {
-                let dishes = [] || ele.data;
+                let dishes = ele.data;
 
                 let filterDishes = []; // use to store the match dishes
-                Array.isArray(dishes) || dishes.forEach((hotEle, index) => {
+               
+                Array.isArray(dishes) && dishes.forEach((hotEle, index) => {
+
                   const { cuisineId, id, restaurantId } = hotEle;
                   if (restaurantId !== RESTAURANT_ID) {
                     return;
@@ -607,6 +609,7 @@ Page({
                   filterDishes.push(hotEle)
                   hotKeyIndex.push(_KEY);
                 });
+                
                 if (filterDishes.length > 0) {
                   listData.push({
                     "cuisine": {
@@ -623,7 +626,7 @@ Page({
                 listData.push(...ele.data);
                 wx.setStorageSync('menu', ele.data);
 
-                this.setData({ listData })
+                this.setData({ listData });
 
                 // hot menu is avaliable
                 if (hotKeyIndex.length > 0) {
@@ -670,8 +673,8 @@ Page({
                   });
                 wx.setStorageSync('menuInfo', menuInfo);
               }
-            })
-            this.setData({ listData, hotIndex, hotKeyIndex })
+            })  
+            this.setData({ listData, hotIndex, hotKeyIndex });
           })
           .catch(err => { });
         clearInterval(userIDInterval);
