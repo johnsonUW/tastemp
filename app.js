@@ -46,6 +46,7 @@ App({
 
           if (res.code) {;
             userLogin(res.code).then(res => {
+              
               this.globalData.userID = res.data;
               wx.setStorageSync('userID', res.data);
             }).catch(err => {});
@@ -61,7 +62,7 @@ App({
   onLaunch: function (options) {
     const timeNow = Date.now();
 
-    let {id: restaurantID} = options.query;
+    let {id: restaurantID = 1} = options.query;
 
     this.haveDinner();
     if (restaurantID) {
@@ -72,7 +73,7 @@ App({
   },
 
   onShow: function (options) {
-    let {id: restaurantID} = options.query;
+    let {id: restaurantID = 1} = options.query;
 
     if (restaurantID) {
       /* 扫码进入 */

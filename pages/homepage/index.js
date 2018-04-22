@@ -171,7 +171,7 @@ Page({
   addToCart(e) {
     let { selectedItemsLen, companyId, hotIndex, hotKeyIndex } = this.data;
     this.hideAll();
-    
+
     const { cateindex, subindex, target } = e.currentTarget.dataset;
     let selectedPrefer = this.data.listData[cateindex].items[subindex],
       preferences = selectedPrefer.preferences;
@@ -330,7 +330,7 @@ Page({
 
   // Clear the cart
   clearSelectedItems(e) {
-    
+
     const { selectedItems, hotIndex } = this.data;
     Object
       .keys(selectedItems)
@@ -583,16 +583,16 @@ Page({
         Promise
           .all(promArr)
           .then(res => {
+            
             let listData = [];
             let hotKeyIndex = []; //use to store the key of hot dishes
             let hotIndex = {}; //use to store the index from hot dishes & normal dishes
             res.forEach((ele, index) => {
-
               if (index === 0) {
-                let dishes = ele.data;
+                let dishes = [] || ele.data;
 
                 let filterDishes = []; // use to store the match dishes
-                dishes.forEach((hotEle, index) => {
+                Array.isArray(dishes) || dishes.forEach((hotEle, index) => {
                   const { cuisineId, id, restaurantId } = hotEle;
                   if (restaurantId !== RESTAURANT_ID) {
                     return;
@@ -606,14 +606,16 @@ Page({
                   }
                   filterDishes.push(hotEle)
                   hotKeyIndex.push(_KEY);
-                })
-                listData.push({
-                  "cuisine": {
-                    "name": "热销",
-                    id: ""
-                  },
-                  "items": filterDishes
-                })
+                });
+                if (filterDishes.length > 0) {
+                  listData.push({
+                    "cuisine": {
+                      "name": "热销",
+                      id: ""
+                    },
+                    "items": filterDishes
+                  })
+                }
               } else {
                 if (hotKeyIndex.length > 0) {
                   this.setData({ hotKeyIndex })
@@ -633,7 +635,7 @@ Page({
                     return goodsEle
                       .items
                       .some((foodEle, fIndex) => {
-                        
+
                         const _KEY = `c${foodEle.cuisineId}id${foodEle.id}`;
                         // if()
                         if (hotKeyIndex.indexOf(_KEY) !== -1) {
@@ -739,7 +741,7 @@ Page({
     app.globalData.selectedItems = cloneDeep(this.data.selectedItems);
     app.globalData.selectedItemsLen = this.data.selectedItemsLen;
     let _selectedItems = this.data.selectedItems;
-    
+
     if (_selectedItems.length) {
       Object
         .keys(_selectedItems)
