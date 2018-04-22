@@ -65,6 +65,7 @@ Page({
           onTap(e) {
             submitPayOption(userID, orderId).then(res => {
               const {havingDinner} = app.globalData;
+              havingDinner.table = null;
               havingDinner.paid = true;
               havingDinner.dinnerTime = Date.now();
 
@@ -108,6 +109,7 @@ Page({
 
                     const {havingDinner} = app.globalData;
                     havingDinner.paid = true;
+                    havingDinner.table = null;
                     havingDinner.dinnerTime = Date.now();
                     app.globalData.havingDinner = havingDinner;
                     wx.setStorageSync('havingDinner', havingDinner);

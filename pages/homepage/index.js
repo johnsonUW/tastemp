@@ -239,10 +239,11 @@ Page({
   showTableNum(e) {
     // 如果处于正在用餐的状态, 直接上传订单;
     const {paid, status, dinnerTime, table} = this.data.havingDinner;
+    console.log(table, status);
     if (status && table) {
       this.confirmTableNum();
     } else {
-      this.setData({showTableNum: true});
+      this.setData({showTableNum: true,tableNumber:null});
     }
   },
   hideTableNum(e) {
@@ -338,7 +339,7 @@ Page({
 
   // Clear the cart
   clearSelectedItems(e) {
-
+  
     const {selectedItems, hotIndex} = this.data;
     Object
       .keys(selectedItems)
@@ -725,7 +726,9 @@ debugger;
    */
   onShow: function () {
     // console.log(Tlist)
-
+    this.setData({
+      havingDinner: app.globalData.havingDinner
+    })
     let query = wx.createSelectorQuery();
     query
       .select('.menu-scroll')

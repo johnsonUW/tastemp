@@ -50,6 +50,7 @@ Page({
               wx.showToast({title: `支付成功`, icon: 'success', duration: 1000});
               const {havingDinner} = app.globalData;
               havingDinner.paid = true;
+              havingDinner.table = null;
               havingDinner.dinnerTime = Date.now();
               app.globalData.havingDinner = havingDinner;
 
@@ -99,6 +100,7 @@ Page({
 
                     const {havingDinner} = app.globalData;
                     havingDinner.paid = true;
+                    havingDinner.table = true;
                     havingDinner.dinnerTime = Date.now();
                     app.globalData.havingDinner = havingDinner;
                     wx.setStorageSync('havingDinner', havingDinner);

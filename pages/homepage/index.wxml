@@ -184,7 +184,7 @@
       <text>请输入餐桌号</text>
     </view>
     <view class='input-view'>
-      <input type='number' bindinput="getTableNumber" value='{{tableNumber}}'></input>
+      <input type='number' bindinput="getTableNumber"></input>
     </view>
     <view class='btns'>
       <text catchtap='hideTableNum'>取消</text>
