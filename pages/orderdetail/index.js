@@ -50,8 +50,9 @@ Page({
               wx.showToast({title: `支付成功`, icon: 'success', duration: 1000});
               const {havingDinner} = app.globalData;
               havingDinner.paid = true;
-
+              havingDinner.dinnerTime = Date.now();
               app.globalData.havingDinner = havingDinner;
+
               wx.setStorageSync('havingDinner', havingDinner);
               _this.setData({payEnable: false});
               // wx.navigateTo({url: '../orderdetail/index'});
@@ -98,7 +99,7 @@ Page({
 
                     const {havingDinner} = app.globalData;
                     havingDinner.paid = true;
-
+                    havingDinner.dinnerTime = Date.now();
                     app.globalData.havingDinner = havingDinner;
                     wx.setStorageSync('havingDinner', havingDinner);
 
@@ -133,7 +134,7 @@ Page({
       navbackNum: getCurrentPages().length - 1
     });
     let {latestOrder, userID, havingDinner} = app.globalData;
-    this.setData({havingDinner,payEnable: !havingDinner.paid && havingDinner.status});
+    this.setData({havingDinner,payEnable: !havingDinner.paid});
     if(!latestOrder){
       return;
     }

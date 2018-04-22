@@ -1,11 +1,11 @@
 // pages/list/list.js
-import { isMatch, cloneDeep } from '../../utils/plugins/lodash/index.js';
+import {isMatch, cloneDeep} from '../../utils/plugins/lodash/index.js';
 
 let app = getApp();
 let testAPI = app.testAPI;
 /* deprecated */
 // const {account, company, menu, order, V2_BASE_API} = app;
-const { V2_BASE_API } = app;
+const {V2_BASE_API} = app;
 
 const {
   getAnOrderInfo,
@@ -51,7 +51,8 @@ Page({
     hotKeyIndex: [],
     hotIndex: {},
     restaurantInfo: {},
-    tableNumber: null
+    tableNumber: null,
+    totalFee: 0
   },
 
   blank() {
@@ -59,7 +60,7 @@ Page({
   },
 
   hideAll() {
-    this.setData({ cartDetailShow: false, showSelectedItem: false, showPreferences: false, showTableNum: false })
+    this.setData({cartDetailShow: false, showSelectedItem: false, showPreferences: false, showTableNum: false})
   },
 
   /**
@@ -68,30 +69,33 @@ Page({
    * @param {any} e
    */
   showItemDetail(e) {
-    const { cateindex, subindex } = e.currentTarget.dataset;
-    this.setData({ showSelectedItem: true, selectedItem: this.data.listData[cateindex].items[subindex], cateindex, subindex })
+    const {cateindex, subindex} = e.currentTarget.dataset;
+    this.setData({showSelectedItem: true, selectedItem: this.data.listData[cateindex].items[subindex], cateindex, subindex})
   },
 
   switchPreferences(e) {
     const index = e.target.dataset.index;
 
-    index !== undefined && this.setData({ 'selectedIndex': index, selectQuantity: 1 })
+    index !== undefined && this.setData({'selectedIndex': index, selectQuantity: 1})
   },
   decreasePFQuan() {
     let selectQuantity = this.data.selectQuantity;
     if (selectQuantity < 2) {
+      this.calcTotalFee();
       return
     } else {
       this.setData({
         'selectQuantity': --selectQuantity
       })
     }
+    this.calcTotalFee();
   },
   increasePFQuan() {
     let selectQuantity = this.data.selectQuantity;
     this.setData({
       'selectQuantity': ++selectQuantity
-    })
+    });
+    this.calcTotalFee();
   },
   addPF2Cart() {
     const {
@@ -103,7 +107,7 @@ Page({
       selectedItemsLen,
       companyId
     } = this.data;
-    const { name, id } = selectedPrefer;
+    const {name, id} = selectedPrefer;
     const key = `c${name || ''}id${id}pf${selectedIndex}`;
 
     let selectedItems = this.data.selectedItems;
@@ -112,7 +116,7 @@ Page({
     let selectedItem = selectedItems[key];
     if (selectedItem) {
       // 如果之前已经选择了, 直接把quantity++就可以了:
-      let { quantity } = this.data.listData[pfCateIndex].items[pfSubindex];
+      let {quantity} = this.data.listData[pfCateIndex].items[pfSubindex];
       this.setData({
         [`selectedItems.${key}.quantity`]: selectQuantity + quantity,
         selectedItemsLen: selectQuantity + selectedItemsLen,
@@ -137,15 +141,16 @@ Page({
         [`listData[${pfCateIndex}].items[${pfSubindex}].pref`]: `pf${selectedIndex}`
       })
     }
-
+    
     /* 修改逻辑 => 每一个菜只能选择一个口味, 通过pref属性判断, 选中了就有这个属性 */
+    this.calcTotalFee();
     this.hideAll();
   },
 
   // sync the hot & normal menu;
   syncHotMenu(ele, target) {
     if (ele) {
-      const { hotIndex, hotSubIndex, norIndex, norSubIndex } = ele;
+      const {hotIndex, hotSubIndex, norIndex, norSubIndex} = ele;
       let quantity;
       switch (target) {
         case 'hot':
@@ -169,10 +174,10 @@ Page({
     }
   },
   addToCart(e) {
-    let { selectedItemsLen, companyId, hotIndex, hotKeyIndex } = this.data;
+    let {selectedItemsLen, companyId, hotIndex, hotKeyIndex} = this.data;
     this.hideAll();
 
-    const { cateindex, subindex, target } = e.currentTarget.dataset;
+    const {cateindex, subindex, target} = e.currentTarget.dataset;
     let selectedPrefer = this.data.listData[cateindex].items[subindex],
       preferences = selectedPrefer.preferences;
 
@@ -190,7 +195,7 @@ Page({
     } else {
       // 没有额外选项, 直接添加到菜单
       const element = this.data.listData[cateindex].items[subindex];
-      const { cuisineId: name, id: id } = element;
+      const {cuisineId: name, id: id} = element;
       const key = `c${name || ''}id${id}`;
 
       //
@@ -202,7 +207,7 @@ Page({
       let selectedItem = selectedItems[key];
       if (selectedItem) {
         // 如果之前已经选择了, 直接把quantity++就可以了:cart isn't Empty
-        let { quantity } = selectedItems[key];
+        let {quantity} = selectedItems[key];
         this.setData({
           [`selectedItems.${key}.quantity`]: ++quantity,
           selectedItemsLen: ++selectedItemsLen,
@@ -228,26 +233,26 @@ Page({
         this.syncHotMenu(_eleHotIndex, target);
       }
     }
-
+    this.calcTotalFee();
   },
 
   showTableNum(e) {
     // 如果处于正在用餐的状态, 直接上传订单;
-    const { paid, status, dinnerTime, table } = this.data.havingDinner;
+    const {paid, status, dinnerTime, table} = this.data.havingDinner;
     if (status && table) {
       this.confirmTableNum();
     } else {
-      this.setData({ showTableNum: true });
+      this.setData({showTableNum: true});
     }
   },
   hideTableNum(e) {
-    this.setData({ showTableNum: false })
+    this.setData({showTableNum: false})
   },
 
   getTableNumber(e) {
-    const { value } = e.detail;
+    const {value} = e.detail;
 
-    this.setData({ tableNumber: parseInt(value) })
+    this.setData({tableNumber: parseInt(value)})
   },
   /**
    * get the tableNumber & upload order
@@ -256,17 +261,17 @@ Page({
    */
 
   confirmTableNum(e) {
-    const { tableNumber, restaurantInfo, selectedItems } = this.data;
-    const { userID } = app.globalData;
-    const { id: restaurantID, name: restaurantName } = restaurantInfo;
+    const {tableNumber, restaurantInfo, selectedItems} = this.data;
+    const {userID} = app.globalData;
+    const {id: restaurantID, name: restaurantName} = restaurantInfo;
     let details = [];
 
     if (!tableNumber) {
-      wx.showToast({ title: `请输入餐桌号`, icon: 'loading', duration: 1000 })
+      wx.showToast({title: `请输入餐桌号`, icon: 'loading', duration: 1000})
       return;
     }
-    this.setData({ confirmTableNumEnable: false })
-    wx.showLoading({ title: "下单中...", mask: true });
+    this.setData({confirmTableNumEnable: false})
+    wx.showLoading({title: "下单中...", mask: true});
 
     Object
       .keys(selectedItems)
@@ -275,14 +280,14 @@ Page({
           return;
         };
         const tempEle = selectedItems[_key];
-        details.push({ "dishId": tempEle.item.id, "quantity": tempEle.quantity, "cuisineId": tempEle.item.cuisineId });
+        details.push({"dishId": tempEle.item.id, "quantity": tempEle.quantity, "cuisineId": tempEle.item.cuisineId});
       })
     let confirmData = {
       "restaurantId": restaurantID,
       "userId": userID,
       "items": details,
       "table": tableNumber
-    }
+    };
     submitOrder(confirmData).then(res => {
       wx.hideLoading();
 
@@ -296,16 +301,19 @@ Page({
       app.globalData.havingDinner = havingDinner;
       wx.setStorageSync('havingDinner', havingDinner);
 
-      this.setData({ confirmTableNumEnable: true, tableNumber: parseInt(tableNumber), havingDinner });
+      this.setData({confirmTableNumEnable: true, tableNumber: parseInt(tableNumber), havingDinner});
       app.globalData.latestOrderId = res.data;
 
       wx.setStorageSync('latestOrderID', res.data);
       this.clearSelectedItems();
-      wx.navigateTo({ url: '../orderconfirm/index' });
+      wx.navigateTo({url: '../orderconfirm/index'});
     }).catch(err => {
+      console.log('====================================');
+      console.log(err, 'ERROR INFO');
+      console.log('====================================');
       wx.hideLoading();
-      this.setData({ confirmTableNumEnable: true });
-      wx.showToast({ title: `下单失败`, icon: 'loading', "duration": 1000 });
+      this.setData({confirmTableNumEnable: true});
+      wx.showToast({title: `下单失败`, icon: 'loading', "duration": 1000});
     });
 
     // TODO: upload the order setTimeout(() => {   wx.hideLoading(); this.setData({
@@ -325,25 +333,25 @@ Page({
     } else {
       animateCSS = `weui-animate-slide-down weui-animate-fade-out`
     }
-    this.setData({ animateCSS: animateCSS, cartDetailShow: this.data.cartDetailShow });
+    this.setData({animateCSS: animateCSS, cartDetailShow: this.data.cartDetailShow});
   },
 
   // Clear the cart
   clearSelectedItems(e) {
 
-    const { selectedItems, hotIndex } = this.data;
+    const {selectedItems, hotIndex} = this.data;
     Object
       .keys(selectedItems)
       .forEach(_key => {
         if (_key === 'length') {
           return
         }
-        const { cateindex, subindex, item } = selectedItems[_key];
+        const {cateindex, subindex, item} = selectedItems[_key];
         this.setData({
           [`listData[${cateindex}].items[${subindex}].quantity`]: 0
-        })
+        });
 
-        const _eleHotIndex = hotIndex[_key]
+        const _eleHotIndex = hotIndex[_key];
 
         this.syncHotMenu(_eleHotIndex, item.target);
       });
@@ -367,18 +375,18 @@ Page({
       target
     } = e.currentTarget.dataset;
     if (close) {
-      this.setData({ showSelectedItem: false })
+      this.setData({showSelectedItem: false})
     }
     let tempSelecEle = this.data.listData[cateindex].items[subindex];
     if (src !== 'cart') {
       index += tempSelecEle.pref || '';
     }
     if (tempSelecEle.preferences && tempSelecEle.preferences.length > 1 && src !== 'cart' && tempSelecEle.quantity === 0) {
-      this.setData({ showPreferences: true })
+      this.setData({showPreferences: true})
       return;
     }
-    let { quantity } = this.data.selectedItems[index];
-    let { selectedItemsLen, hotIndex } = this.data;
+    let {quantity} = this.data.selectedItems[index];
+    let {selectedItemsLen, hotIndex} = this.data;
     if (quantity === 0) {
       return;
     }
@@ -390,10 +398,10 @@ Page({
     })
     const _eleHotIndex = hotIndex[index]
     this.syncHotMenu(_eleHotIndex, target);
-
+    this.calcTotalFee();
   },
   decreaseNum(e) {
-
+debugger;
     let {
       index,
       close,
@@ -403,7 +411,7 @@ Page({
       target
     } = e.currentTarget.dataset;
     if (close) {
-      this.setData({ showSelectedItem: false })
+      this.setData({showSelectedItem: false})
     }
     let tempSelecEle = this.data.listData[cateindex].items[subindex];
     // if(this.data.listData[cateindex].items[subindex].preferences.length > 1 &&
@@ -412,15 +420,16 @@ Page({
     if (src !== 'cart') {
       index += tempSelecEle.pref || '';
     }
-    let { quantity } = this.data.selectedItems[index];
-    let { selectedItemsLen, hotIndex } = this.data;
+    let {quantity} = this.data.selectedItems[index];
+    let {selectedItemsLen, hotIndex} = this.data;
     quantity = --quantity;
     const _eleHotIndex = hotIndex[index]
 
     /* 数量变成0需要的操作 */
     if (quantity === 0) {
-      let { selectedItems, onlineOrders, onlineOrdersID } = this.data;
-      let { id: itemID } = selectedItems[index].item;
+      debugger;
+      let {selectedItems, onlineOrders, onlineOrdersID} = this.data;
+      let {id: itemID} = selectedItems[index].item;
       const orderItemIDFlag = onlineOrdersID.indexOf(itemID);
       if (orderItemIDFlag !== -1) {
         const orderItemID = onlineOrders[orderItemIDFlag].id;
@@ -429,9 +438,9 @@ Page({
           .then(res => {
             onlineOrdersID.splice(orderItemIDFlag, 1);
             onlineOrders.splice(orderItemIDFlag, 1)
-
-            delete (selectedItems[index]);
-            let { length } = selectedItems;
+            
+            delete(selectedItems[index]);
+            let {length} = selectedItems;
             selectedItems.length = --length;
             this.setData({
               selectedItems: selectedItems,
@@ -440,15 +449,16 @@ Page({
               [`listData[${cateindex}].items[${subindex}].pref`]: ``,
               onlineOrders,
               onlineOrdersID
-            })
+            });
+            this.calcTotalFee();
             this.syncHotMenu(_eleHotIndex, target);
           })
-          .catch(res => { })
+          .catch(res => {})
 
       } else {
 
-        delete (selectedItems[index]);
-        let { length } = selectedItems;
+        delete(selectedItems[index]);
+        let {length} = selectedItems;
         selectedItems.length = --length;
         this.setData({
           selectedItems: selectedItems,
@@ -456,6 +466,7 @@ Page({
           [`listData[${cateindex}].items[${subindex}].quantity`]: quantity,
           [`listData[${cateindex}].items[${subindex}].pref`]: ``
         })
+        this.calcTotalFee();
         this.syncHotMenu(_eleHotIndex, target);
       }
       return;
@@ -464,15 +475,32 @@ Page({
         [`selectedItems.${index}.quantity`]: quantity,
         selectedItemsLen: --selectedItemsLen,
         [`listData[${cateindex}].items[${subindex}].quantity`]: quantity
-      })
+      });
       this.syncHotMenu(_eleHotIndex, target);
     }
+    this.calcTotalFee();
+  },
 
+  calcTotalFee() {
+    debugger;
+    const {selectedItems} = this.data;
+    let totalFee = 0;
+    Object
+      .keys(selectedItems)
+      .forEach(_key => {
+        if (_key === 'length') {
+          return;
+        };
+        const {quantity, item} = selectedItems[_key];
+        const {price} = item;
+        totalFee += price * 100 * quantity;
+      });
+      this.setData({totalFee});
   },
 
   /* Scroll-view's method start */
   itemsScroll(e) {
-    const { itemsViewH, menuViewH, menuScrollH, menuItemH } = this.data;
+    const {itemsViewH, menuViewH, menuScrollH, menuItemH} = this.data;
     if (!menuScrollH) {
 
       let query = wx.createSelectorQuery();
@@ -492,7 +520,7 @@ Page({
     }
 
     // let menuScrollH =
-    const { scrollTop, scrollHeight } = e.detail;
+    const {scrollTop, scrollHeight} = e.detail;
 
     let topArr = []; //用于记录scrollview中节点的top位置
 
@@ -526,11 +554,11 @@ Page({
               } else if (i === 0) {
                 tempScrollTop = 0
               }
-              this.setData({ mScrollTop: tempScrollTop })
+              this.setData({mScrollTop: tempScrollTop})
 
             }
           })
-          this.setData({ activeIndex: i })
+          this.setData({activeIndex: i})
           break;
         }
         i++
@@ -543,8 +571,8 @@ Page({
     // topArr, Array.isArray(topArr))
   },
   selectCategory(e) {
-    let { id, index } = e.currentTarget.dataset;
-    this.setData({ intoView: id })
+    let {id, index} = e.currentTarget.dataset;
+    this.setData({intoView: id})
   },
   /* Scroll-view's method end */
 
@@ -553,29 +581,27 @@ Page({
    */
   onLoad: function (options) {
 
-    const { restaurantID } = app.globalData;
+    const {restaurantID} = app.globalData;
     getRestaurantInfo(restaurantID).then(res => {
-      const { name } = res.data;
-      this.setData({
-        restaurantInfo: res.data
-      });
+      const {name} = res.data;
+      this.setData({restaurantInfo: res.data});
       wx.setStorageSync('restaurantInfo', res.data);
       wx.setNavigationBarTitle({
         title: name || ""
       });
-    }).catch(err => { });
+    }).catch(err => {});
 
-    const { havingDinner } = app.globalData;
-    const { status, table } = havingDinner;
+    const {havingDinner} = app.globalData;
+    const {status, table} = havingDinner;
 
     const RESTAURANT_ID = parseInt(restaurantID);
-    this.setData({ restaurantID: RESTAURANT_ID, havingDinner, tableNumber: table });
+    this.setData({restaurantID: RESTAURANT_ID, havingDinner, tableNumber: table});
 
     let userIDInterval = null;
 
     userIDInterval = setInterval(() => {
       if (app.globalData.userID) {
-        const { userID: USER_ID } = app.globalData;
+        const {userID: USER_ID} = app.globalData;
         let promArr = [
           getUserPreference(USER_ID, RESTAURANT_ID),
           getMenu(RESTAURANT_ID)
@@ -583,7 +609,7 @@ Page({
         Promise
           .all(promArr)
           .then(res => {
-            
+
             let listData = [];
             let hotKeyIndex = []; //use to store the key of hot dishes
             let hotIndex = {}; //use to store the index from hot dishes & normal dishes
@@ -592,10 +618,10 @@ Page({
                 let dishes = ele.data;
 
                 let filterDishes = []; // use to store the match dishes
-               
+
                 Array.isArray(dishes) && dishes.forEach((hotEle, index) => {
 
-                  const { cuisineId, id, restaurantId } = hotEle;
+                  const {cuisineId, id, restaurantId} = hotEle;
                   if (restaurantId !== RESTAURANT_ID) {
                     return;
                   };
@@ -609,7 +635,7 @@ Page({
                   filterDishes.push(hotEle)
                   hotKeyIndex.push(_KEY);
                 });
-                
+
                 if (filterDishes.length > 0) {
                   listData.push({
                     "cuisine": {
@@ -621,12 +647,12 @@ Page({
                 }
               } else {
                 if (hotKeyIndex.length > 0) {
-                  this.setData({ hotKeyIndex })
+                  this.setData({hotKeyIndex})
                 }
                 listData.push(...ele.data);
                 wx.setStorageSync('menu', ele.data);
 
-                this.setData({ listData });
+                this.setData({listData});
 
                 // hot menu is avaliable
                 if (hotKeyIndex.length > 0) {
@@ -665,18 +691,17 @@ Page({
                     res
                       .items
                       .forEach(item => {
-                        const { cuisineId, id, quantity } = item;
+                        const {cuisineId, id, quantity} = item;
                         const _key = `r${restaurantID}c${cuisineId}d${id}`;
                         menuInfo[_key] = item;
-                      })
-
+                      });
                   });
                 wx.setStorageSync('menuInfo', menuInfo);
               }
-            })  
-            this.setData({ listData, hotIndex, hotKeyIndex });
+            })
+            this.setData({listData, hotIndex, hotKeyIndex});
           })
-          .catch(err => { });
+          .catch(err => {});
         clearInterval(userIDInterval);
         userIDInterval = null;
 
@@ -690,7 +715,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () { },
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
@@ -708,7 +733,7 @@ Page({
     // query.select('#m0').boundingClientRect();
 
     query.exec(res => {
-      this.setData({ menuViewH: res[0].height, itemsViewH: res[1].height })
+      this.setData({menuViewH: res[0].height, itemsViewH: res[1].height})
       // menuScrollH: res[2].height * this.data.listData.length, menuItemH:
       // res[2].height
     })
@@ -752,7 +777,7 @@ Page({
           if (res === 'length') {
             return
           }
-          const { cateindex, subindex } = _selectedItems[res];
+          const {cateindex, subindex} = _selectedItems[res];
           this.data.listData[cateindex].items[subindex].quantity = 0
         })
       // this.setData({listData: this.data.listData})
@@ -762,5 +787,5 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () { }
+  onUnload: function () {}
 })

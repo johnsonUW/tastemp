@@ -130,8 +130,16 @@ page {
   z-index: 100;
 }
 .cart-to-detail {
+  position: relative;
   display: flex;
   flex: 1;
+}
+.total-fee {
+  position: absolute;
+  right: 10px;
+  height: 100%;
+  line-height: 98rpx;
+  color: #ff5353;
 }
 .cart-ico {
   width: 80rpx;

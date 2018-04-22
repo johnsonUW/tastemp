@@ -62,6 +62,7 @@
         <image src='../../static/imgs/gouwuc{{imgRatio}}.png' class='cart-ico'></image>
         <!-- TODO: 点菜的数量和add的数量有关，不仅仅是和菜品的种类 -->
         <text class='cart-glimpse-des' hidden='{{!selectedItems.length}}'>已点了{{selectedItemsLen}}个菜</text>
+        <text class='total-fee' hidden='{{!totalFee}}'>${{totalFee / 100}}</text>
       </view>
       <!-- <navigator class='ordered-view {{selectedItemsLen?"ordered-selected":""}}' url='{{selectedItemsLen?"../orderconfirm/index":""}}'
         hover-class='none'>
