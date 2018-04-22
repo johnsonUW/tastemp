@@ -363,6 +363,7 @@ Page({
       selectedItemsLen: 0
     });
     this.hideAll();
+    this.calcTotalFee();
   },
 
   increaseNum(e) {
@@ -500,7 +501,7 @@ debugger;
 
   /* Scroll-view's method start */
   itemsScroll(e) {
-    const {itemsViewH, menuViewH, menuScrollH, menuItemH} = this.data;
+    const {itemsViewH, menuViewH, menuScrollH, menuItemH, tapIndex} = this.data;
     if (!menuScrollH) {
 
       let query = wx.createSelectorQuery();
@@ -558,7 +559,9 @@ debugger;
 
             }
           })
-          this.setData({activeIndex: i})
+          this.setData({activeIndex: i});
+          this.setData({activeIndex: tapIndex});
+          
           break;
         }
         i++
@@ -572,7 +575,7 @@ debugger;
   },
   selectCategory(e) {
     let {id, index} = e.currentTarget.dataset;
-    this.setData({intoView: id})
+    this.setData({intoView: id, tapIndex: index});
   },
   /* Scroll-view's method end */
 
