@@ -1,5 +1,5 @@
 // const BASE_URL = `https://tasteservice.applinzi.com`;
-const BASE_URL = `https://taste.chinacloudsites.cn`;
+const BASE_URL = `https://tasteservice.chinacloudsites.cn`;
 
 const MENU = {
     BASE: `${BASE_URL}/api/v1/menu`

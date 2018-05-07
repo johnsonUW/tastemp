@@ -632,6 +632,10 @@ debugger;
                   hotEle.isHot = true;
                   hotEle.target = 'hot';
                   const _KEY = `c${cuisineId}id${id}`;
+                  debugger
+                  if (hotKeyIndex.indexOf(_KEY) !== -1){
+                    return
+                  }
                   hotIndex[_KEY] = {
                     hotIndex: 0,
                     hotSubIndex: filterDishes.length
