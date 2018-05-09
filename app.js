@@ -63,7 +63,7 @@ App({
     const timeNow = Date.now();
 
     let {
-      id: restaurantID = 1
+      id: restaurantID
     } = options.query;
 
     this.haveDinner();
