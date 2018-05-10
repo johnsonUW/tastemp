@@ -101,7 +101,7 @@ App({
       this.getUserID();
     } else {
       // 每次进入小程序都需要扫码进入
-      wx.setStorageSync('restaurantID', '');
+      /* wx.setStorageSync('restaurantID', '');
       wx.showModal({
         content: `请扫描餐桌上的二维码点餐`,
         showCancel: false,
@@ -110,13 +110,14 @@ App({
             wx.navigateBack({delta: 1})
           }
         }
-      })
+      }) */
 
       // 扫码进入小程序后, 3分钟内可以不通过扫码进入, 进入的时候会刷新这个状态
-      /* let _codeNow = Date.now();
+      let _codeNow = Date.now();
       // 判断当前二维码的有效时间是否超时
       let _codeBefore = wx.getStorageSync('codeExpired') || 0;
       if (_codeNow > _codeBefore + CODE_EXPIRED) {
+        wx.setStorageSync('restaurantID', '');
         wx.showModal({
           content: `请扫描餐桌上的二维码点餐`,
           showCancel: false,
@@ -133,7 +134,7 @@ App({
         wx.setStorageSync('codeExpired', _codeNow);
         this.haveDinner();
         this.getUserID();
-      } */
+      }
     }
   },
   globalData: {
