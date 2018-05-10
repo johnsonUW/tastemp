@@ -3,7 +3,7 @@
 import {V2_BASE_API, WECHAT_PAY} from './utils/order_api_v2/index.js';
 
 const EXPIRED_TIME = 3600000; //订单超时时间  1000 * 60 * 60
-// const CODE_EXPIRED = 18000000 // 扫码超时时间 1000 * 60 * 60 * 6; /* deprecated */
+const CODE_EXPIRED = 180000 // 扫码超时时间 1000 * 60 * 3; /* deprecated */
 
 const {userLogin} = V2_BASE_API;
 
@@ -12,6 +12,11 @@ App({
   WECHAT_PAY,
 
   haveDinner: function () {
+
+    /**
+    * 用于判断当前用户是否在用餐,
+    *
+    */
 
     let havingDinner = wx.getStorageSync('havingDinner') || {
       'status': false,
@@ -60,11 +65,10 @@ App({
     }
   },
   onLaunch: function (options) {
-    const timeNow = Date.now();
+    this.haveDinner();
+    /* const timeNow = Date.now();
 
-    let {
-      id: restaurantID
-    } = options.query;
+    let {id: restaurantID} = options.query;
 
     this.haveDinner();
     if (restaurantID) {
@@ -82,21 +86,55 @@ App({
           }
         }
       })
-    };
+    }; */
   },
 
   onShow: function (options) {
     /* deprecated */
-    // let {id: restaurantID = 1} = options.query; if (restaurantID) {   /* 扫码进入 */
-    //  wx.setStorageSync('codeExpired', Date.now());   this.haveDinner();
-    // this.getUserID(); } else {   /* 未扫码进入 */   let _codeNow = Date.now();   /*
-    // 判断当前二维码的有效时间是否超时 */   let _codeBefore = wx.getStorageSync('codeExpired') ||
-    // 0;   if (_codeNow > _codeBefore + CODE_EXPIRED) {     wx.showModal({
-    // content: `请扫描餐桌上的二维码点餐`,       showCancel: false,       success: (res) => {
-    //       if (res.confirm) {           wx.navigateBack({delta: 1})         }
-    //  }     })   } else {     /* 未扫码进入, 但是距离上一次扫码不到五个小时 */     restaurantID =
-    // wx.getStorageSync('restaurantID');     this.globalData.restaurantID =
-    // restaurantID;     this.haveDinner();     this.getUserID();   } }
+    let {id: restaurantID} = options.query;
+
+    if (restaurantID) {/* 扫码进入
+    */
+      this.globalData.restaurantID = restaurantID;
+      wx.setStorageSync('restaurantID', restaurantID);
+      wx.setStorageSync('codeExpired', Date.now());
+      this.getUserID();
+    } else {
+      // 每次进入小程序都需要扫码进入
+      wx.setStorageSync('restaurantID', '');
+      wx.showModal({
+        content: `请扫描餐桌上的二维码点餐`,
+        showCancel: false,
+        success: (res) => {
+          if (res.confirm) {
+            wx.navigateBack({delta: 1})
+          }
+        }
+      })
+
+      // 扫码进入小程序后, 3分钟内可以不通过扫码进入, 进入的时候会刷新这个状态
+      /* let _codeNow = Date.now();
+      // 判断当前二维码的有效时间是否超时
+      let _codeBefore = wx.getStorageSync('codeExpired') || 0;
+      if (_codeNow > _codeBefore + CODE_EXPIRED) {
+        wx.showModal({
+          content: `请扫描餐桌上的二维码点餐`,
+          showCancel: false,
+          success: (res) => {
+            if (res.confirm) {
+              wx.navigateBack({delta: 1})
+            }
+          }
+        })
+      } else {
+        // 未扫码进入, 但是距离上一次打开小程序不到5分钟
+        restaurantID = wx.getStorageSync('restaurantID');
+        this.globalData.restaurantID = restaurantID;
+        wx.setStorageSync('codeExpired', _codeNow);
+        this.haveDinner();
+        this.getUserID();
+      } */
+    }
   },
   globalData: {
     userInfo: null,
