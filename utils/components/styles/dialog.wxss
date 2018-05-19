@@ -23,6 +23,7 @@
 
 .weui-dialog__bd {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 34rpx;
@@ -116,6 +117,8 @@
   margin-bottom: 0.6rem; 
   text-align: left;
   box-sizing: border-box;
+  border: 1px solid #31c3dd;
+  border-radius: 4rpx
 }
 
 .weui-dialog__ft.weui-dialog__btns_vertical {

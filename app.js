@@ -139,6 +139,8 @@ App({
   },
   globalData: {
     userInfo: null,
-    imgRatio: '@2x'
+    imgRatio: '@2x',
+    taxRate: 0.0925,
+    localVerifyCode: '1234'
   }
 })

@@ -65,8 +65,18 @@
               </view>
             </block>
             <view class='item-sum'>
-              <text>合计:</text>
-              <text>${{order.totalFee}}</text>
+              <view>
+                <text>税率:</text>
+                <text>${{order.taxFee}}</text>
+              </view>
+              <view>
+                <text>小费:</text>
+                <text>${{order.tipFee}}</text>
+              </view>
+              <view>
+                <text>合计:</text>
+                <text>${{order.totalFee}}</text>
+              </view>
             </view>
           </view>
         </view>

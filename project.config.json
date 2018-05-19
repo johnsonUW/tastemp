@@ -90,6 +90,13 @@
 					"pathName": "pages/homepage/index",
 					"query": "id=1",
 					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "homepage == id=2",
+					"pathName": "pages/orderconfirm/index",
+					"query": "id=2",
+					"scene": "1011"
 				}
 			]
 		}

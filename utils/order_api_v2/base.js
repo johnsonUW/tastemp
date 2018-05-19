@@ -17,12 +17,10 @@ function getMenu(resID) {
 }
 
 /* orders */
-function getAnOrderInfo(orderID) {
+function getAnOrderInfo(data) {
     return _fetch({
         api: ORDERS.BASE,
-        data: {
-            "orderId": orderID
-        },
+        data,
         method: `POST`
     });
 }

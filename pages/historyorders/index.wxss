@@ -184,6 +184,9 @@ page {
   font-size: 28rpx;
 }
 .history-items .items-wrap .item-ct .item-sum {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   text-align: right;
   padding: 30rpx 20rpx;
 }

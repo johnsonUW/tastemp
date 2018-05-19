@@ -96,7 +96,12 @@ Page({
           item.image = image;
           item.name = name;
         });
-        order.totalFee = Math.round(oTotal * 100) / 100;
+        /* 本地计算菜品总额 */
+        order.totalFee = Math.round(oTotal * 100 + order.tipInPennies + order.taxInPennies) / 100;
+        // order.totalFee = order.totalInPennies / 100;
+
+        order.tipFee = order.tipInPennies / 100;
+        order.taxFee = order.taxInPennies / 100;
         order.filterDate = `${year}-${month}-${date}`;
         order.filterTime = `${hours}:${minutes}:${seconds}`;
       });

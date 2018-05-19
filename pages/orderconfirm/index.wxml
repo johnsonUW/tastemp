@@ -42,6 +42,14 @@
       <view class='btn' catchtap='payOptions'>买单</view>
       <view class='ct clear-fix'>
         <text>消费</text>
+        <text>${{latestOrder.orderFee}}</text>
+      </view>
+      <view class='ct clear-fix'>
+        <text>税率</text>
+        <text>${{latestOrder.taxFee}}</text>
+      </view>
+      <view class='ct clear-fix'>
+        <text>总计</text>
         <text>${{latestOrder.totalFee}}</text>
       </view>
     </view>

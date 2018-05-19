@@ -2,12 +2,13 @@ import _fetch from './fetch.js';
 import $api from './url.js';
 const {WECHAT_PAY: $WECHAT_PAY} = $api;
 
-function initializePayment(userID, orderID) {
+function initializePayment(userID, orderID, tipInPennies) {
     return _fetch({
         api: $WECHAT_PAY.INIT,
         data: {
             "userId": userID,
-            "orderId": orderID
+            "orderId": orderID,
+            tipInPennies
         },
         method: `POST`
     });
