@@ -85,7 +85,7 @@ Page({
 
           $wuxDialog.prompt({
             content: '请输入验证码',
-            fieldtype: 'number',
+            fieldtype: 'digit',
             password: 0,
             defaultText: '',
             maxlength: 10,
@@ -134,7 +134,7 @@ Page({
           // 提醒用户输入小费
           $wuxDialog.prompt({
             content: '请输入小费',
-            fieldtype: 'text',
+            fieldtype: 'digit',
             password: 0,
             defaultText: '',
             maxlength: 10,

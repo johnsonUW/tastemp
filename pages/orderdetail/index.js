@@ -52,7 +52,7 @@ Page({
         onTap(e) {
           $wuxDialog.prompt({
             content: '请输入验证码',
-            fieldtype: 'number',
+            fieldtype: 'digit',
             password: 0,
             defaultText: '',
             maxlength: 10,
@@ -104,7 +104,7 @@ Page({
         onTap(e) {
           $wuxDialog.prompt({
             content: '请输入小费',
-            fieldtype: 'text',
+            fieldtype: 'digit',
             password: 0,
             defaultText: '',
             maxlength: 10,

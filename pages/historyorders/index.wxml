@@ -9,8 +9,8 @@
             <text>{{latestOrder.filterDate}}</text>
           </view>
           <view class='header-r'>
-            <text>实付</text>
-            <text>＄{{latestOrder.totalFee}}</text>
+            <!-- <text>实付</text>
+            <text>＄{{latestOrder.totalFee}}</text> -->
           </view>
         </view>
 

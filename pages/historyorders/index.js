@@ -11,7 +11,7 @@ const {
   userLogin,
   submitPayOption
 } = V2_BASE_API;
-
+const TAX_RATE = app.globalData.taxRate
 Page({
 
   /**
@@ -101,7 +101,7 @@ Page({
         // order.totalFee = order.totalInPennies / 100;
 
         order.tipFee = order.tipInPennies / 100;
-        order.taxFee = order.taxInPennies / 100;
+        order.taxFee = order.taxInPennies / 100 || Math.round(oTotal * 100 * TAX_RATE) / 100;
         order.filterDate = `${year}-${month}-${date}`;
         order.filterTime = `${hours}:${minutes}:${seconds}`;
       });

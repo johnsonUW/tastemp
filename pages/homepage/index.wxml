@@ -7,7 +7,7 @@
       <scroll-view class='menu-scroll' scroll-y="true" scroll-into-view="{{}}" scroll-top="{{mScrollTop}}">
         
         <block wx:for="{{listData}}" wx:key="" wx:if="{{item.items.length>0}}">
-          <view class='menu-item {{index === activeIndex?"menu-active":""}}' data-id='i{{index}}' catchtap='selectCategory' data-index='{{index}}'
+          <view class='menu-item {{index === tapIndex?"menu-active":""}}' data-id='i{{index}}' catchtap='selectCategory' data-index='{{index}}'
             id="m{{index || 0}}">{{item.cuisine.name || item.name}}</view>
         </block>
       </scroll-view>
@@ -18,7 +18,7 @@
     <view class='items-view'>
       <scroll-view class='items-scroll' scroll-y="true" scroll-with-animation="true" scroll-into-view="{{intoView}}" enable-back-to-top="true"
         bindscroll="itemsScroll" id='scrollItems'>
-        <block wx:for="{{listData}}" wx:for-item="foods" wx:key="" wx:for-index="cateIndex" wx:if="{{foods.items.length>0}}">
+        <block wx:for="{{listData}}" wx:for-item="foods" wx:key="" wx:for-index="cateIndex" wx:if="{{foods.items.length>0 && tapIndex === cateIndex}}">
            <view class='items-nav-title' id='i{{cateIndex}}'></view>  
           <!-- <view class='items-nav-title' id='i{{cateIndex}}'>{{foods.category.name || foods.name}}</view> -->
           <block wx:for="{{foods.items || foods.items}}" wx:for-item="food" wx:key="" wx:for-index="subIndex">

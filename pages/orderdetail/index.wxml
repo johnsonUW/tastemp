@@ -26,6 +26,10 @@
       </view>
       <view class='ct-ft'>
         <text>菜品详情</text>
+        <view>
+        <text>税率</text>
+        <text>{{latestOrder.taxFee}}</text>
+        </view>
       </view>
     </view>
   </view>
