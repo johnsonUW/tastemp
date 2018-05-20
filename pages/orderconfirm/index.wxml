@@ -50,7 +50,7 @@
       </view>
       <view class='ct clear-fix'>
         <text>总计</text>
-        <text>${{latestOrder.totalFee}}</text>
+        <text>${{latestOrder.totalFee}} / ￥{{latestOrder.totalRmb}}</text>
       </view>
     </view>
   </view>

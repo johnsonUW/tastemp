@@ -280,6 +280,7 @@ Page({
       order.taxFee = Math.round(oTotal * 100 * TAX_RATE) / 100;
       order.orderFee = Math.round(oTotal * 100) / 100;
       order.totalFee = Math.round(oTotal * 100 * (1 + TAX_RATE)) / 100;
+      order.totalRmb = Math.round(order.totalFee * 100 * 6.3) / 100;
       order.filterDate = `${year}-${month}-${date}`;
       order.filterTime = `${hours}:${minutes}:${seconds}`;
       this.setData({
