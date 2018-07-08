@@ -23,7 +23,7 @@
           <!-- <view class='items-nav-title' id='i{{cateIndex}}'>{{foods.category.name || foods.name}}</view> -->
           <block wx:for="{{foods.items || foods.items}}" wx:for-item="food" wx:key="" wx:for-index="subIndex">
             <view class='item-view clear-fix' catchtap='showItemDetail' data-cateindex='{{cateIndex}}' data-subindex='{{subIndex}}'>
-              <image mode='scaleToFill' class='item-img' src='{{food.Image || "/static/imgs/canpinxiangq@2x.png"}}'></image>
+              <image mode='scaleToFill' class='item-img' src='{{food.imageUrl || "/static/imgs/canpinxiangq@2x.png"}}'></image>
               <view class='item-view-ct'>
                 <view class='item-view-ct-first'>
                   <view class='name'>{{food.name}}</view>

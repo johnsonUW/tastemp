@@ -90,7 +90,7 @@ Page({
         details.forEach(item => {
           const {cuisineId, dishId, quantity} = item;
           const _key = `r${restaurantID}c${cuisineId}d${dishId}`;
-          const {price, name, image} = menuInfo[_key];
+          const {price, name, imageUrl:image} = menuInfo[_key];
           oTotal += quantity * price;
           item.price = price;
           item.image = image;

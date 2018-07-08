@@ -268,7 +268,7 @@ Page({
         const {
           price,
           name,
-          image
+          imageUrl: image
         } = menuInfo[_key];
         latestOrderQuantity += quantity;
         oTotal += quantity * price;
