@@ -27,6 +27,8 @@
       <view class='ct-ft'>
         <text>菜品详情</text>
         <view>
+        <text>总额</text>
+        <text style="margin-right: 20rpx">{{latestOrder.totalFee}}</text>
         <text>税率</text>
         <text>{{latestOrder.taxFee}}</text>
         </view>
@@ -52,61 +54,10 @@
             </view>
           </view>
 
-          <!-- <view class='cart-item clear-fix' wx:if="{{!orders.paidStatus}}">
-            <view class='item-des'>
-              <view class='item-name'>{{item.item.name}}</view>
-              <text class='item-price'>￥{{item.item.priceInPennies/100}}</text>
-            </view>
-            <view class='item-btns'>
-              <image src='../../static/imgs/jians{{imgRatio}}.png' class='btns-de' catchtap='putDecrease' data-itemsindex='{{itemsIndex}}' data-index='{{index}}'></image>
-              <text>{{item.quantity}}</text>
-              <image src='../../static/imgs/tianjia{{imgRatio}}.png' class='btns-in' catchtap='putIncrease' data-itemsindex='{{itemsIndex}}' data-index='{{index}}'></image>
-            </view>
-          </view> -->
         </block>
 
         <!-- update to foodorderMP 2nd Version end-->
 
-
-        <!-- <block wx:for="{{selectOrder}}" wx:key="" wx:if="{{index !== 'length' && item.quantity !== 0}}">
-          <view class='cart-item clear-fix'>
-            <view class='item-des'>
-              <view class='item-name'>{{item.item.name}}</view>
-              <text class='item-price'>￥{{item.item.priceInPennies/100}}</text>
-            </view>
-            <view class='item-btns'>
-              <image src='../../static/imgs/jians{{imgRatio}}.png' class='btns-de' catchtap='decreaseNum' data-index='{{index}}'></image>
-              <text>{{item.quantity}}</text>
-              <image src='../../static/imgs/tianjia{{imgRatio}}.png' class='btns-in' catchtap='increaseNum' data-index='{{index}}'></image>
-            </view>
-          </view>
-        </block> -->
-
-        <!-- <block wx:for="{{uploadedOrders.items}}" wx:for-item="orders" wx:key="" wx:for-index="itemsIndex">
-          <view class='items-ct'>
-            <view class='items-title' wx:if="{{uploadedOrders.items.length>1}}">菜单{{itemsIndex+1}}{{orders.paidStatus?"（已支付）":"（待支付）"}}</view>
-            <block wx:for="{{orders.item}}" wx:if="{{index !== 'length' && orders.item[index].quantity !== 0}}" wx:key="">
-              <view class='item-ct clear-fix' wx:if="{{orders.paidStatus}}">
-                <text>{{item.item.name}}</text>
-                <text>￥{{item.item.priceInPennies/100}}</text>
-                <text>X{{item.quantity}}</text>
-              </view>
-
-
-              <view class='cart-item clear-fix' wx:if="{{!orders.paidStatus}}">
-                <view class='item-des'>
-                  <view class='item-name'>{{item.item.name}}</view>
-                  <text class='item-price'>￥{{item.item.priceInPennies/100}}</text>
-                </view>
-                <view class='item-btns'>
-                  <image src='../../static/imgs/jians{{imgRatio}}.png' class='btns-de' catchtap='putDecrease' data-itemsindex='{{itemsIndex}}' data-index='{{index}}'></image>
-                  <text>{{item.quantity}}</text>
-                  <image src='../../static/imgs/tianjia{{imgRatio}}.png' class='btns-in' catchtap='putIncrease' data-itemsindex='{{itemsIndex}}' data-index='{{index}}'></image>
-                </view>
-              </view>
-            </block>
-          </view>
-        </block> -->
       </scroll-view>
     </view>
   </view>

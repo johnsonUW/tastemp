@@ -9,13 +9,6 @@ const {
   WECHAT_PAY
 } = app;
 const {
-  getAnOrderInfo,
-  getHistoryOrders,
-  getMenu,
-  getRestaurantInfo,
-  getUserPreference,
-  submitOrder,
-  userLogin,
   submitPayOption
 } = V2_BASE_API;
 const LOCAL_VERIFY_CODE = app.globalData.localVerifyCode;
@@ -36,11 +29,9 @@ Page({
     const orderId = wx.getStorageSync('latestOrderID');
     const userID = wx.getStorageSync('userID');
 
-    let transaction_Id,
-      total_fee,
-      $notifyUrl;
-    // const orderId = 'ocBa05PpjEOsY1-npqjvqJeP_Pdw 4/18/2018 6:41:53 AM';
-    let _this = this;
+    let total_fee;
+
+      let _this = this;
     $wuxDialog.open({
 
       content: '请选择支付方式',
@@ -96,7 +87,6 @@ Page({
             }
           })
 
-
         }
       }, {
         text: '微信支付',
@@ -115,7 +105,6 @@ Page({
                 .then(res => {
                   const {
                     nonce,
-                    notifyUrl,
                     paySign,
                     prepayId,
                     signType,
@@ -124,8 +113,7 @@ Page({
                     transactionId
                   } = res.data;
                   total_fee = totalAmountInPennies;
-                  transaction_Id = transactionId;
-                  $notifyUrl = notifyUrl;
+               
                   wx.requestPayment({
                     timeStamp: timeStamp,
                     nonceStr: nonce,
@@ -180,8 +168,6 @@ Page({
 
           })
 
-
-          // wx.navigateTo({url: '../orderdetail/index'});
         }
       }]
     })
@@ -233,20 +219,4 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {},
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {},
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {},
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {}
-
 })

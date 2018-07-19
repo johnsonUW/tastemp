@@ -67,7 +67,8 @@
       <!-- <navigator class='ordered-view {{selectedItemsLen?"ordered-selected":""}}' url='{{selectedItemsLen?"../orderconfirm/index":""}}'
         hover-class='none'>
       </navigator> -->
-        <text class='ordered-view {{selectedItemsLen?"ordered-selected":""}}' catchtap='{{selectedItemsLen?"showTableNum":""}}'>送厨房</text>
+        <text class='ordered-view {{selectedItemsLen?"ordered-selected":""}}' catchtap='{{selectedItemsLen?"checkOrder":""}}'>买单</text>
+        <text class='ordered-view {{selectedItemsLen?"ordered-selected":""}}' catchtap='{{selectedItemsLen?"showOrderDetailView":""}}'>送厨房</text>
     </view>
     <view class='cart-detail {{animateCSS}}' hidden="{{!cartDetailShow}}" catchtouchmove='blank'>
       <view class='cart-header'>
@@ -192,5 +193,61 @@
     </view>
   </view>
   <!-- tablenumber confirm -->
-  <view class='mask' hidden='{{!cartDetailShow && !showSelectedItem && !showPreferences && !showTableNum}}' catchtouchmove='blank' catchtap='hideAll'></view>
+  <view class='mask' hidden='{{!cartDetailShow && !showSelectedItem && !showPreferences && !showTableNum && !showOrderDetail}}' catchtouchmove='blank' catchtap='hideAll'></view>
+
+  <!-- show order detail -->
+  <view class='order-detail-view' wx:if="{{showOrderDetail}}">
+  <view class='scroll-header-view'>
+    <view class='content'>
+      <view class='ct-sum clear-fix'>
+        <view class='ct-item'>
+          <view class='ct-item-title'>下单时间</view>
+          <view class='ct-item-bd'>{{latestOrder.filterTime2Min}}</view>
+        </view>
+        <view class='ct-item ct-item2'>
+          <view class='ct-item-title'>菜品数量</view>
+          <view class='ct-item-bd'>{{latestOrder.orderLen}}份</view>
+        </view>
+      </view>
+      <view class='ct-ft'>
+        <text>菜品详情</text>
+        <view>
+        <text>总额</text>
+        <text style="margin-right: 20rpx">{{latestOrder.totalFee}}</text>
+        <text>税率</text>
+        <text>{{latestOrder.taxFee}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='ct-bd'>
+    <view class='cart-ct'>
+      <scroll-view class='cart-scroll' scroll-y="true">
+
+        <!-- update to foodorderMP 2nd Version start-->
+        <block wx:for="{{latestOrder.details}}" wx:key="">
+          <view class='item-ct clear-fix' wx:if="{{item.quantity !== 0}}">
+            <view class='img-view'>
+              <image src='{{item.image || "/static/imgs/canpinxiangq@2x.png"}}'></image>
+            </view>
+            <view class='item-desc'>
+              <text>{{item.name}}</text>
+              <view>
+                <text>${{item.price}}</text>
+                <text>X{{item.quantity}}</text>
+              </view>
+            </view>
+          </view>
+
+          
+        </block>
+
+        <!-- update to foodorderMP 2nd Version end-->
+
+      </scroll-view>
+    </view>
+  </view>
+  <text class="order-detail-btn-confirm" catchtap='showTableNum'>确定</text>
+  </view>
+  <!-- show order detail -->
 </view>

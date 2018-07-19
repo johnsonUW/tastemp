@@ -19,7 +19,7 @@ const {
   submitOrder,
   userLogin,
   submitPayOption,
-
+  delOrder
 } = V2_BASE_API;
 
 Page({
@@ -48,6 +48,39 @@ Page({
         })
       }
     })
+  },
+
+  delOrder() {
+    const _this = this;
+    const orderId = wx.getStorageSync('latestOrderID');
+
+    $wuxDialog.prompt({
+      content: '请输入管理员密码',
+      maxlength: 50,
+      onConfirm(e) {
+        const value = _this.data.$wux.dialog.prompt.response;
+    
+        if(value === app.globalData.delOrderPWD) {
+
+          delOrder(orderId).then(res=>{
+            wx.showToast({
+              title: `删除成功`,
+              icon: 'loading',
+              duration: 1000
+            })
+          }).catch(err=>{
+      
+          })
+        } else {
+          wx.showToast({
+            title: `密码输入有误`,
+            icon: 'loading',
+            duration: 1000
+          })
+        }
+      }
+    })
+    
   },
 
   payOptions() {
@@ -125,7 +158,6 @@ Page({
               }
             }
           })
-
         }
       }, {
         text: '微信支付',

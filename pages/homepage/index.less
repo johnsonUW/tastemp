@@ -1,4 +1,5 @@
 /* pages/list/list.wxss */
+@import '../orderdetail/index.less';
 
 page {
     height: 100%;
@@ -184,7 +185,7 @@ page {
   }
   
   .ordered-view {
-    width: 200rpx;
+    width: 160rpx;
     height: 98rpx;
     font-size: 36rpx;
     display: flex;
@@ -569,3 +570,36 @@ page {
   }
   
   /* table num confirm end */
+
+  /* order detail view */
+  .order-detail-view{
+    width: 86%;
+    position: fixed;
+    top: 6%;
+    background-color: #fff;
+    z-index: 100;
+    left: 50%;
+    margin-left: -43%;
+    .scroll-header-view {
+      padding-top: 0;
+      .content {
+        margin-top: 0;
+        border-top: none;
+      }
+      
+    }
+    .order-detail-btn-confirm{
+      position: absolute;
+      width: 150rpx;
+      height: 60rpx;
+      line-height: 60rpx;
+      text-align: center;
+      bottom: -80rpx;
+      left: 50%;
+      margin-left: -75rpx;
+      background-color: #23a4bb;
+      color: #fff;
+    }
+  }
+
+  /* order detail view end */
