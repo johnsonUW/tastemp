@@ -97,6 +97,12 @@
 					"pathName": "pages/orderconfirm/index",
 					"query": "id=2",
 					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "送厨房",
+					"pathName": "pages/orderconfirm/index",
+					"query": "id=1"
 				}
 			]
 		}

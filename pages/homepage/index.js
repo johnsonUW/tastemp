@@ -4,6 +4,8 @@ import {
   cloneDeep
 } from '../../utils/plugins/lodash/index.js';
 
+import { formatNumber } from '../../utils/util'
+
 let app = getApp();
 let testAPI = app.testAPI;
 /* deprecated */
@@ -13,17 +15,13 @@ const {
 } = app;
 
 const {
-  getAnOrderInfo,
-  getHistoryOrders,
   getMenu,
   getRestaurantInfo,
   getUserPreference,
   submitOrder,
-  userLogin,
-  submitPayOption
 } = V2_BASE_API;
 
-// import Tlist from '../../utils/mock.js'
+
 
 Page({
 
@@ -57,7 +55,8 @@ Page({
     hotIndex: {},
     restaurantInfo: {},
     tableNumber: null,
-    totalFee: 0
+    totalFee: 0,
+    showOrderDetail: false
   },
 
   blank() {
@@ -69,7 +68,8 @@ Page({
       cartDetailShow: false,
       showSelectedItem: false,
       showPreferences: false,
-      showTableNum: false
+      showTableNum: false,
+      showOrderDetail: false
     })
   },
 
@@ -289,13 +289,14 @@ Page({
       dinnerTime,
       table
     } = this.data.havingDinner;
-
+    debugger
     if (status && table) {
       this.confirmTableNum();
     } else {
       this.setData({
         showTableNum: true,
-        tableNumber: null
+        tableNumber: null,
+        showOrderDetail: false
       });
     }
   },
@@ -314,12 +315,64 @@ Page({
       tableNumber: parseInt(value)
     })
   },
+
+  showOrderDetailView() {
+    const {selectedItems, selectedItemsLen, totalFee} = this.data;
+    const taxFee = Math.round(totalFee * app.globalData.taxRate)
+    const details = [];
+    Object.keys(selectedItems).forEach(_key=>{
+      if(_key !== 'length') {
+        const _item = selectedItems[_key]
+        const {name, price, imageUrl} = _item.item
+        var _food = {
+          name, price, image: imageUrl, quantity:_item.quantity
+        }
+        details.push(_food)
+      }
+    })
+    const _now = new Date()
+    const _hour = _now.getHours()
+    const _min = _now.getMinutes()
+
+    const latestOrder = {
+      filterTime2Min: `${formatNumber(_hour)}:${formatNumber(_min)}`,
+      orderLen: selectedItemsLen,
+      totalFee: (totalFee + taxFee) / 100,
+      taxFee: taxFee / 100,
+      details: details
+    }
+    
+    this.setData({
+      latestOrder
+    })
+    this.setData({
+      showOrderDetail: true
+    })
+  },
+
+  /* confirm the order direct */
+  checkOrder(){
+    const {
+      restaurantInfo,
+      selectedItems
+    } = this.data;
+
+    const {
+      userID
+    } = app.globalData;
+
+    const {
+      id: restaurantID,
+    } = restaurantInfo;
+
+    this.submitOrders(selectedItems,restaurantID,userID)
+  },
+
   /**
    * get the tableNumber & upload order
    *
    * @param {any} e
    */
-
   confirmTableNum(e) {
     const {
       tableNumber,
@@ -331,9 +384,7 @@ Page({
     } = app.globalData;
     const {
       id: restaurantID,
-      name: restaurantName
     } = restaurantInfo;
-    let details = [];
 
     if (!tableNumber) {
       wx.showToast({
@@ -346,6 +397,13 @@ Page({
     this.setData({
       confirmTableNumEnable: false
     })
+ 
+    this.submitOrders(selectedItems,restaurantID,userID,tableNumber)
+  
+  },
+
+  submitOrders(selectedItems,restaurantID,userID,tableNumber = 0) {
+    const details = []
     wx.showLoading({
       title: "下单中...",
       mask: true
@@ -408,11 +466,6 @@ Page({
         "duration": 1000
       });
     });
-
-    // TODO: upload the order setTimeout(() => {   wx.hideLoading(); this.setData({
-    // confirmTableNumEnable:true   })   wx.navigateTo({     url:
-    // '../orderconfirm/index'   }) }, 1000); this.setData({"confirmTableNumEnable":
-    // false})
   },
 
   getCartDetail(e) {
@@ -513,6 +566,7 @@ Page({
     this.syncHotMenu(_eleHotIndex, target);
     this.calcTotalFee();
   },
+
   decreaseNum(e) {
     
     let {

@@ -141,6 +141,7 @@ App({
     userInfo: null,
     imgRatio: '@2x',
     taxRate: 0.0925,
-    localVerifyCode: '1234'
+    localVerifyCode: '1234',
+    delOrderPWD: 'tastymenuadmin'
   }
 })

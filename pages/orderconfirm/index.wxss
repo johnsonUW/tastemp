@@ -60,6 +60,9 @@ page {
   top: 0rpx;
   right: 42rpx;
 }
+.btns-view .btn-item .danger {
+  background-color: red;
+}
 .btns-view .btn-item:nth-of-type(1) > .ct .ct-item .title-sign {
   position: relative;
   margin-left: 15rpx;

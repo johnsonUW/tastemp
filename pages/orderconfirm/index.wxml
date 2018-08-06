@@ -53,5 +53,10 @@
         <text>${{latestOrder.totalFee}} / ￥{{latestOrder.totalRmb}}</text>
       </view>
     </view>
+    <view class='btn-item'>
+    
+      <view class='btn danger' catchtap='delOrder'>删除订单</view>
+    
+    </view>
   </view>
 </view>
