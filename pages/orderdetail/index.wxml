@@ -23,6 +23,7 @@
           <view class='ct-item-title'>菜品数量</view>
           <view class='ct-item-bd'>{{latestOrder.orderLen}}份</view>
         </view>
+        
       </view>
       <view class='ct-ft'>
         <text>菜品详情</text>
