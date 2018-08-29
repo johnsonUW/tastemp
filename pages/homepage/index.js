@@ -282,24 +282,26 @@ Page({
   },
 
   showTableNum(e) {
-    // 如果处于正在用餐的状态, 直接上传订单;
+    // 如果处于正在用餐的状态, 直接上传订单, 否则输入餐桌号; deprecated
+    // 直接上传订单
     const {
       paid,
       status,
       dinnerTime,
       table
     } = this.data.havingDinner;
-    debugger
-    if (status && table) {
-      this.confirmTableNum();
-    } else {
-      this.setData({
-        showTableNum: true,
-        tableNumber: null,
-        showOrderDetail: false
-      });
-    }
-  },
+    this.confirmTableNum();
+
+    // if (status && table) {
+    //   this.confirmTableNum();
+    // } else {
+    //   this.setData({
+    //     showTableNum: true,
+    //     tableNumber: null,
+    //     showOrderDetail: false
+    //   });
+    // }
+  }, 
   hideTableNum(e) {
     this.setData({
       showTableNum: false
@@ -354,7 +356,8 @@ Page({
   checkOrder(){
     const {
       restaurantInfo,
-      selectedItems
+      selectedItems,
+      tableNumber
     } = this.data;
 
     const {
@@ -365,7 +368,7 @@ Page({
       id: restaurantID,
     } = restaurantInfo;
 
-    this.submitOrders(selectedItems,restaurantID,userID)
+    this.submitOrders(selectedItems, restaurantID, userID, tableNumber)
   },
 
   /**
@@ -386,14 +389,15 @@ Page({
       id: restaurantID,
     } = restaurantInfo;
 
-    if (!tableNumber) {
-      wx.showToast({
-        title: `请输入餐桌号`,
-        icon: 'loading',
-        duration: 1000
-      })
-      return;
-    }
+    /* deprecated tableNumber input isn't required */
+    // if (!tableNumber) {
+    //   wx.showToast({
+    //     title: `请输入餐桌号`,
+    //     icon: 'loading',
+    //     duration: 1000
+    //   })
+    //   return;
+    // }
     this.setData({
       confirmTableNumEnable: false
     })
@@ -403,6 +407,9 @@ Page({
   },
 
   submitOrders(selectedItems,restaurantID,userID,tableNumber = 0) {
+    if (typeof tableNumber === 'undefined') {
+      tableNumber = 0
+    }
     const details = []
     wx.showLoading({
       title: "下单中...",
@@ -979,7 +986,8 @@ Page({
   onShow: function () {
     // console.log(Tlist)
     this.setData({
-      havingDinner: app.globalData.havingDinner
+      havingDinner: app.globalData.havingDinner,
+      tableNumber: app.globalData.tableNumber
     })
 
 

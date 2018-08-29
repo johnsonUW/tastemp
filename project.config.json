@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 12,
 			"list": [
 				{
 					"id": -1,
@@ -88,7 +88,7 @@
 					"id": 8,
 					"name": "homepage == scene=1",
 					"pathName": "pages/homepage/index",
-					"query": "id=1",
+					"query": "id=36&tableNumber=12",
 					"scene": "1011"
 				},
 				{
@@ -103,6 +103,20 @@
 					"name": "送厨房",
 					"pathName": "pages/orderconfirm/index",
 					"query": "id=1"
+				},
+				{
+					"id": -1,
+					"name": "homepage == scene=1",
+					"pathName": "pages/homepage/index",
+					"query": "id=37&tableNumber=12",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "homepage == scene=1",
+					"pathName": "pages/homepage/index",
+					"query": "id=37&tableNumber=16",
+					"scene": "1011"
 				}
 			]
 		}

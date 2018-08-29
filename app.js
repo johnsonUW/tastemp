@@ -91,12 +91,15 @@ App({
 
   onShow: function (options) {
     /* deprecated */
-    let {id: restaurantID} = options.query;
+    let {id: restaurantID, tableNumber} = options.query;
+    if (restaurantID) {
+      /* 扫码进入 */
+      tableNumber = typeof tableNumber !== 'undefined' ? parseInt(tableNumber, 10) : 0
 
-    if (restaurantID) {/* 扫码进入
-    */
       this.globalData.restaurantID = restaurantID;
       wx.setStorageSync('restaurantID', restaurantID);
+      this.globalData.tableNumber = tableNumber;
+      wx.setStorageSync('tableNumber', tableNumber);
       wx.setStorageSync('codeExpired', Date.now());
       this.getUserID();
     } else {
@@ -116,8 +119,10 @@ App({
       let _codeNow = Date.now();
       // 判断当前二维码的有效时间是否超时
       let _codeBefore = wx.getStorageSync('codeExpired') || 0;
+
       if (_codeNow > _codeBefore + CODE_EXPIRED) {
         wx.setStorageSync('restaurantID', '');
+        wx.setStorageSync('tableNumber', 0);
         wx.showModal({
           content: `请扫描餐桌上的二维码点餐`,
           showCancel: false,
@@ -131,6 +136,8 @@ App({
         // 未扫码进入, 但是距离上一次打开小程序不到5分钟
         restaurantID = wx.getStorageSync('restaurantID');
         this.globalData.restaurantID = restaurantID;
+        tableNumber = parseInt(wx.getStorageSync('tableNumber'), 10);
+        this.globalData.tableNumber = tableNumber;
         wx.setStorageSync('codeExpired', _codeNow);
         this.haveDinner();
         this.getUserID();

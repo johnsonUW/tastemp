@@ -8,7 +8,7 @@
         
         <block wx:for="{{listData}}" wx:key="" wx:if="{{item.items.length>0}}">
           <view class='menu-item {{index === tapIndex?"menu-active":""}}' data-id='i{{index}}' catchtap='selectCategory' data-index='{{index}}'
-            id="m{{index || 0}}">{{item.cuisine.name || item.name}}</view>
+            id="m{{index || 0}}">{{item.cuisine.name === 'N/A' ? '未分类': item.cuisine.name }}</view>
         </block>
       </scroll-view>
     </view>
