@@ -319,6 +319,9 @@ Page({
         latestOrder: order,
         latestOrderQuantity
       });
+      if (options.arisePay === 'true') {
+        this.payOptions()
+      }
     }).catch(err => {});
 
   },

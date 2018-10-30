@@ -280,7 +280,7 @@ Page({
     }
     this.calcTotalFee();
   },
-
+  /* order to Kitchen: Step 2.1 */
   showTableNum(e) {
     // 如果处于正在用餐的状态, 直接上传订单, 否则输入餐桌号; deprecated
     // 直接上传订单
@@ -317,7 +317,7 @@ Page({
       tableNumber: parseInt(value)
     })
   },
-
+  /* order to Kitchen: step 1 */
   showOrderDetailView() {
     const {selectedItems, selectedItemsLen, totalFee} = this.data;
     const taxFee = Math.round(totalFee * app.globalData.taxRate)
@@ -353,6 +353,7 @@ Page({
   },
 
   /* confirm the order direct */
+  /* checkOrder: Step 1 */
   checkOrder(){
     const {
       restaurantInfo,
@@ -368,10 +369,11 @@ Page({
       id: restaurantID,
     } = restaurantInfo;
 
-    this.submitOrders(selectedItems, restaurantID, userID, tableNumber)
+    this.submitOrders(selectedItems, restaurantID, userID, tableNumber, true)
   },
 
   /**
+   * order to Kitchen: Step 2.2
    * get the tableNumber & upload order
    *
    * @param {any} e
@@ -402,11 +404,14 @@ Page({
       confirmTableNumEnable: false
     })
  
-    this.submitOrders(selectedItems,restaurantID,userID,tableNumber)
+    this.submitOrders(selectedItems,restaurantID,userID,tableNumber, false)
   
   },
-
-  submitOrders(selectedItems,restaurantID,userID,tableNumber = 0) {
+  /**
+   * order to Kitchen: Step 3
+   * checkOrder: Step 2
+   */
+  submitOrders(selectedItems,restaurantID,userID,tableNumber = 0, arisePay) {
     if (typeof tableNumber === 'undefined') {
       tableNumber = 0
     }
@@ -457,8 +462,10 @@ Page({
 
       wx.setStorageSync('latestOrderID', res.data);
       this.clearSelectedItems();
+      /* order to Kitchen: Step 4, next page */
+      /* checkOrder: Step 3, next page */
       wx.navigateTo({
-        url: '../orderconfirm/index'
+        url: `../orderconfirm/index?arisePay=${arisePay}`
       });
     }).catch(err => {
    
